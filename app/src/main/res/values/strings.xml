@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Mining Calculator</string>
+    <string name="totalMass">Total Mass</string>
+    <string name="oreQuartz">% Quartz</string>
+    <string name="oreHepha">% Hepha</string>
+    <string name="oreBexalite">% Bexalite</string>
+    <string name="value">Value</string>
+</resources>

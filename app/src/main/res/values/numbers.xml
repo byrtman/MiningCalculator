@@ -1,0 +1,9 @@
+<resources>
+    <integer name="vpumQuartz">2</integer>
+    <integer name="vpumHepha">26</integer>
+    <integer name="vpumBexalite">79</integer>
+    <integer name="vpumAgricium">17</integer>
+    <integer name="vpumAluminum">2</integer>
+    <integer name="vpumLaranite">57</integer>
+    <integer name="vpumTungsten">7</integer>
+</resources>
