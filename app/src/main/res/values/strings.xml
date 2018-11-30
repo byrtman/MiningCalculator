@@ -1,8 +1,35 @@
 <resources>
     <string name="app_name">Mining Calculator</string>
-    <string name="totalMass">Total Mass</string>
+    <string name="totalMass">Set Mass</string>
     <string name="oreQuartz">% Quartz</string>
     <string name="oreHepha">% Hepha</string>
     <string name="oreBexalite">% Bexalite</string>
-    <string name="value">Value</string>
+
+    <string name="value">aUEC</string>
+
+    <string-array name="chunkSizes">
+        <item>13.15</item>
+        <item>42.54</item>
+        <item>49.10</item>
+        <item>60.31</item>
+        <item>67.71</item>
+        <item>84.96</item>
+        <item>107.74</item>
+        <item>121.02</item>
+        <item>138.33</item>
+        <item>139.79</item>
+        <item>142.15</item>
+        <item>156.74</item>
+        <item>173.85</item>
+        <item>220.67</item>
+        <item>232.95</item>
+        <item>235.82</item>
+        <item>241.52</item>
+        <item>244.06</item>
+        <item>248.63</item>
+        <item>341.52</item>
+        <item>375.71</item>
+    </string-array>
+    <string name="addChunk">Add Chunk</string>
+
 </resources>
