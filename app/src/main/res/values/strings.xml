@@ -1,13 +1,13 @@
 <resources>
     <string name="app_name">Mining Calculator</string>
-    <string name="totalMass">Set Mass</string>
-    <string name="oreQuartz">% Quartz</string>
-    <string name="oreHepha">% Hepha</string>
-    <string name="oreBexalite">% Bexalite</string>
+    <string name="set_mass">Set Mass</string>
+    <string name="edit_mass">Edit Mass</string>
+    <string name="chunk_mass">Kg</string>
+
 
     <string name="value">aUEC</string>
 
-    <string-array name="chunkSizes">
+    <string-array name="chunk_sizes">
         <item>13.15</item>
         <item>42.54</item>
         <item>49.10</item>
@@ -30,6 +30,8 @@
         <item>341.52</item>
         <item>375.71</item>
     </string-array>
-    <string name="addChunk">Add Chunk</string>
+    <string name="add_chunk">Add Chunk</string>
+    <string name="ore_name">ore_name</string>
+    <string name="commit">Commit</string>
 
 </resources>

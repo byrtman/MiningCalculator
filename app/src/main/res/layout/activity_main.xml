@@ -36,7 +36,8 @@
             android:id="@+id/button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/addChunk" />
+            android:text="@string/add_chunk" />
+
     </LinearLayout>
 
 </LinearLayout>

@@ -2,16 +2,16 @@ package com.byrtsoft.starcitizen.miningcalculator;
 
 
 import android.arch.persistence.room.Room;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.widget.NumberPicker;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 
 public class MainActivity extends AppCompatActivity {
 
-    public static final String EXTRA_MESSAGE = "com.tivo.byrt.testapp.MESSAGE";
-    private NumberPicker mMassPicker;
     private OreData[] mTableData;
     private int grandTotal = 0;
 
@@ -20,21 +20,24 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-//        mMassPicker = findViewById(R.id.massPicker);
-//        mMassPicker.setWrapSelectorWheel(true);
-//        mMassPicker.setDisplayedValues(getResources().getStringArray(R.array.chunkSizes));
-//        mMassPicker.setMinValue(0);
-//        mMassPicker.setMaxValue(mMassPicker.getDisplayedValues().length-1);
-
+        // initialize app database
         mTableData = initData();
-
-
         AppDatabase db = Room.inMemoryDatabaseBuilder(this, AppDatabase.class).allowMainThreadQueries().build();
         OreDAO oreDb = db.getOreDAO();
         initializeDatabase(oreDb, mTableData);
 
         TextView view = findViewById(R.id.resultsTotalValue);
         view.setText(String.valueOf(grandTotal)+" "+getString(R.string.value));
+
+        Button button = findViewById(R.id.button);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent();
+                intent.setClass(v.getContext(), DefineChunkActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     private void initializeDatabase(OreDAO oreDb, OreData[] data) {
