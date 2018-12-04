@@ -52,14 +52,6 @@ public class DefineChunkFragment extends Fragment {
             }
         });
 
-        result.findViewById(R.id.buttonChunkCommit).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
-
-
         return result;
     }
 }

@@ -55,7 +55,14 @@
         <TableRow
             android:id="@+id/tableRow"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="366dp"
+            android:gravity="top">
+
+            <Button
+                android:id="@+id/button2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/add_ore" />
 
             <TextView
                 android:id="@+id/textView2"

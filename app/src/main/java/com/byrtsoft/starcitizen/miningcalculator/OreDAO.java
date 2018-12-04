@@ -21,4 +21,7 @@ public interface OreDAO {
 
     @Query("SELECT * FROM ore")
     public List<Ore> getOres();
+
+    @Query("DELETE FROM ore")
+    public void deleteAllOres();
 }
