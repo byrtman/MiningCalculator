@@ -25,7 +25,7 @@ public class ChunkListAdapter extends RecyclerView.Adapter<ChunkListAdapter.Chun
     }
 
     private final LayoutInflater inflater;
-    private List<Chunk> chunks; // cahced copy of chunks
+    private List<Chunk> chunks; // cached copy of chunks
 
     ChunkListAdapter(Context context) { inflater = LayoutInflater.from(context); }
 
@@ -40,8 +40,8 @@ public class ChunkListAdapter extends RecyclerView.Adapter<ChunkListAdapter.Chun
     public void onBindViewHolder(@NonNull ChunkViewHolder holder, int position) {
         if (chunks != null) {
             Chunk current = chunks.get(position);
-            holder.chunkMassItemView.setText(String.format(Locale.US, "%.2f", current.getMass()));
-            holder.chunkValueItemView.setText(String.format(Locale.US, "%.2f", current.getValue()));
+            holder.chunkMassItemView.setText(String.format(Locale.US, "%.2f %s", current.getMass(), "Kg"));
+            holder.chunkValueItemView.setText(String.format(Locale.US, "%s%.0f", "$", current.getValue()));
         } else {
             holder.chunkMassItemView.setText(R.string.nothing);
         }

@@ -39,12 +39,12 @@ public class DefineChunkFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 if (mEditMode) {
-                    mEditButton.setText("Edit Mass");
+                    mEditButton.setText(R.string.edit_mass);
                     mMassPicker.setVisibility(View.INVISIBLE);
-                    mSelectedMass.setText(String.valueOf(mMassPicker.getDisplayedValues()[mMassPicker.getValue()])+" "+getString(R.string.chunk_mass));
+                    mSelectedMass.setText(String.valueOf(mMassPicker.getDisplayedValues()[mMassPicker.getValue()])+" "+getString(R.string.mass_with_unit));
                     mSelectedMass.setVisibility(View.VISIBLE);
                 } else {
-                    mEditButton.setText("commit");
+                    mEditButton.setText(R.string.commit);
                     mMassPicker.setVisibility(View.VISIBLE);
                     mSelectedMass.setVisibility(View.INVISIBLE);
                 }

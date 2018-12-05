@@ -18,6 +18,16 @@ public class AppViewModel extends AndroidViewModel {
 
     LiveData<List<Chunk>> getAllChunks() { return allChunks;}
 
+    public int getAllChunksValue() {
+        int result = 0;
+        if (allChunks != null) {
+            for (Chunk chunk : allChunks.getValue()) {
+                result += chunk.getValue();
+            }
+        }
+        return result;
+    }
+
     public void insertChunk(Chunk chunk) { repository.insertChunk(chunk);}
     public void insertOre(Ore ore) { repository.insertOre(ore);}
 }

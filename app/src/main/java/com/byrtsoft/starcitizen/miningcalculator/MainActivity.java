@@ -11,7 +11,6 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
-import android.widget.CursorAdapter;
 import android.widget.TextView;
 
 import java.util.List;
@@ -28,8 +27,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        TextView view = findViewById(R.id.resultsTotalValue);
-        view.setText(String.valueOf(grandTotal)+" "+getString(R.string.value));
+
 
         Button button = findViewById(R.id.button);
         button.setOnClickListener(new View.OnClickListener() {
@@ -51,8 +49,11 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onChanged(@Nullable List<Chunk> chunks) {
                 adapter.setChunks(chunks);
+                final TextView view = findViewById(R.id.resultsTotalValue);
+                view.setText(String.valueOf(appViewModel.getAllChunksValue())+" "+getString(R.string.value_with_unit));
             }
         });
+
 
     }
 

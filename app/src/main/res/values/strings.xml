@@ -2,12 +2,10 @@
     <string name="app_name">Mining Calculator</string>
     <string name="set_mass">Set Mass</string>
     <string name="edit_mass">Edit Mass</string>
-    <string name="chunk_mass">Kg</string>
+    <string name="mass_with_unit">Kg</string>
     <string name="add_ore">Add Ore</string>
     <string name="nothing">zippo!</string>
-
-
-    <string name="value">aUEC</string>
+    <string name="value_with_unit">aUEC</string>
 
     <string-array name="chunk_sizes">
         <item>13.15</item>
@@ -18,6 +16,7 @@
         <item>84.96</item>
         <item>107.74</item>
         <item>121.02</item>
+        <item>133.90</item>
         <item>138.33</item>
         <item>139.79</item>
         <item>142.15</item>
