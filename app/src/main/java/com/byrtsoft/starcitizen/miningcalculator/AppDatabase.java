@@ -94,10 +94,11 @@ public abstract class AppDatabase extends RoomDatabase {
         @Override
         protected Void doInBackground(final Void... params) {
             dao.deleteAll();
-            Chunk chunk = new Chunk(234.42, 976.3);
-            dao.insert(chunk);
-            chunk = new Chunk(341.21, 609.32);
-            dao.insert(chunk);
+            Chunk chunk;
+            for (int i=0; i<20; i++) {
+                chunk = new Chunk(Math.round(Math.random()*300), Math.round(Math.random()*300));
+                dao.insert(chunk);
+            }
             return null;
         }
 

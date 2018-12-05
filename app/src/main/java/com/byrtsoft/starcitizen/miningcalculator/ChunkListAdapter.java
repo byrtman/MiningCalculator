@@ -8,17 +8,19 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import java.util.Currency;
 import java.util.List;
+import java.util.Locale;
 
 public class ChunkListAdapter extends RecyclerView.Adapter<ChunkListAdapter.ChunkViewHolder> {
 
     class ChunkViewHolder extends RecyclerView.ViewHolder {
-        private final TextView chunkItemView;
+        private final TextView chunkMassItemView;
+        private final TextView chunkValueItemView;
 
         private ChunkViewHolder (View itemView) {
             super(itemView);
-            chunkItemView = itemView.findViewById(R.id.textView);
+            chunkMassItemView = itemView.findViewById(R.id.massTextView);
+            chunkValueItemView = itemView.findViewById(R.id.valueTextView);
         }
     }
 
@@ -27,8 +29,9 @@ public class ChunkListAdapter extends RecyclerView.Adapter<ChunkListAdapter.Chun
 
     ChunkListAdapter(Context context) { inflater = LayoutInflater.from(context); }
 
+    @NonNull
     @Override
-    public ChunkViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public ChunkViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View itemView = inflater.inflate(R.layout.recyclerview_item, parent, false);
         return new ChunkViewHolder(itemView);
     }
@@ -37,9 +40,10 @@ public class ChunkListAdapter extends RecyclerView.Adapter<ChunkListAdapter.Chun
     public void onBindViewHolder(@NonNull ChunkViewHolder holder, int position) {
         if (chunks != null) {
             Chunk current = chunks.get(position);
-            holder.chunkItemView.setText(String.valueOf(current.getMass()));
+            holder.chunkMassItemView.setText(String.format(Locale.US, "%.2f", current.getMass()));
+            holder.chunkValueItemView.setText(String.format(Locale.US, "%.2f", current.getValue()));
         } else {
-            holder.chunkItemView.setText("zippo!");
+            holder.chunkMassItemView.setText(R.string.nothing);
         }
     }
 
