@@ -6,7 +6,9 @@ import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -19,8 +21,6 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
 
     private AppViewModel appViewModel;
-    private ChunkListAdapter chunkListAdapter;
-    private int grandTotal = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-        Button button = findViewById(R.id.button);
+        FloatingActionButton button = findViewById(R.id.fab);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -40,6 +40,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         RecyclerView recyclerView = findViewById(R.id.recyclerview);
+        recyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.HORIZONTAL));
         final ChunkListAdapter adapter = new ChunkListAdapter(this);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -50,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
             public void onChanged(@Nullable List<Chunk> chunks) {
                 adapter.setChunks(chunks);
                 final TextView view = findViewById(R.id.resultsTotalValue);
-                view.setText(String.valueOf(appViewModel.getAllChunksValue())+" "+getString(R.string.value_with_unit));
+                view.setText(String.valueOf(appViewModel.getAllChunksValue())+" "+ getString(R.string.value_with_unit));
             }
         });
 
