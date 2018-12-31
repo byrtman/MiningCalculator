@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimaryDark"
+    tools:context=".DefineOreFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+
+    <NumberPicker
+        android:id="@+id/orePicker"
+        android:layout_width="wrap_content"
+        android:layout_height="80dp"
+        android:layout_margin="4dp"
+        android:solidColor="@color/colorWarn"
+        android:theme="@style/AppTheme.Picker">
+
+    </NumberPicker>
+
+    <NumberPicker
+        android:id="@+id/allocPicker"
+        android:layout_width="wrap_content"
+        android:layout_height="80dp"
+        android:layout_margin="4dp"
+        android:solidColor="@color/colorWarn"
+        android:theme="@style/AppTheme.Picker">
+
+    </NumberPicker>
+</LinearLayout>

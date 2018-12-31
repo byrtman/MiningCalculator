@@ -31,9 +31,9 @@ public abstract class AppDatabase extends RoomDatabase {
     private static RoomDatabase.Callback sRoomDatabaseCallback =
         new RoomDatabase.Callback() {
             @Override
-            public void onOpen(@NonNull SupportSQLiteDatabase db) {
-                super.onOpen(db);
-                new PopulateOreDbAsync(INSTANCE).execute();
+            public void onOpen(@NonNull SupportSQLiteDatabase db) {                super.onOpen(db);
+
+//                new PopulateOreDbAsync(INSTANCE).execute();
                 new PopulateChunkDbAsync(INSTANCE).execute();
             }
         };
@@ -47,41 +47,42 @@ public abstract class AppDatabase extends RoomDatabase {
 
         @Override
         protected Void doInBackground(final Void... params) {
-            dao.deleteAllOres();
-            for (OreData currentData : initData()) {
-                Ore ore = new Ore();
-                ore.setName(currentData.name);
-                ore.setPrice(currentData.price);
-                ore.setInvDensity(currentData.invDensity);
-                dao.insert(ore);
-            }
+//            dao.deleteAllOres();
+//            for (OreData currentData : initData()) {
+//                Ore ore = new Ore();
+//                ore.setName(currentData.name);
+//                ore.setPrice(currentData.price);
+//                ore.setInvDensity(currentData.invDensity);
+//                dao.insert(ore);
+//            }
             return null;
         }
 
-        private OreData[] initData() {
-            return new OreData[]{
-                    new OreData("Quartz", 0.04, 2.0),
-                    new OreData("Bexalite", 79.09, 2.0),
-                    new OreData("Hepha..", 25.52, 2.0),
-                    new OreData("Agricium", 17.34, 2.0),
-                    new OreData("Laranite", 56.59, 2.0),
-                    new OreData("Aluminum", 1.76, 2.0),
-                    new OreData("Tungsten", 7.22, 2.0),
+//        private OreData[] initData() {
+//            return new OreData[]{
+//                    new OreData("Quartz", 0.04, 2.0),
+//                    new OreData("Bexalite", 79.09, 2.0),
+//                    new OreData("Hepha..", 25.52, 2.0),
+//                    new OreData("Agricium", 17.34, 2.0),
+//                    new OreData("Laranite", 56.59, 2.0),
+//                    new OreData("Aluminum", 1.76, 2.0),
+//                    new OreData("Tungsten", 7.22, 2.0),
+//
+//            };
+//
+//        }
 
-            };
-        }
-
-        private static class OreData {
-            private String name;
-            private double price;
-            private double invDensity;
-
-            private OreData(String name, double price, double invDensity) {
-                this.name = name;
-                this.price = price;
-                this.invDensity = invDensity;
-            }
-        }
+//        private static class OreData {
+//            private String name;
+//            private double price;
+//            private double invDensity;
+//
+//            private OreData(String name, double price, double invDensity) {
+//                this.name = name;
+//                this.price = price;
+//                this.invDensity = invDensity;
+//            }
+//        }
     }
 
     private static class PopulateChunkDbAsync extends AsyncTask<Void, Void, Void> {
@@ -95,10 +96,10 @@ public abstract class AppDatabase extends RoomDatabase {
         protected Void doInBackground(final Void... params) {
             dao.deleteAll();
             Chunk chunk;
-            for (int i=0; i<20; i++) {
-                chunk = new Chunk(Math.round(Math.random()*300), Math.round(Math.random()*300));
-                dao.insert(chunk);
-            }
+//            for (int i=0; i<20; i++) {
+//                chunk = new Chunk(Math.round(Math.random()*300), Math.round(Math.random()*300));
+//                dao.insert(chunk);
+//            }
             return null;
         }
 
