@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.NumberPicker;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class DefineChunkFragment extends Fragment {
 
@@ -21,6 +22,9 @@ public class DefineChunkFragment extends Fragment {
     private TextView mSelectedMass;
     private Button mEditButton;
     private boolean mEditMode = false;
+
+    private double mSelectedMassValue;
+    private double mAccumulatedValue;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState)
@@ -51,7 +55,9 @@ public class DefineChunkFragment extends Fragment {
                 if (mEditMode) {
                     mEditButton.setText(R.string.edit_mass);
                     mMassPicker.setVisibility(View.INVISIBLE);
-                    mSelectedMass.setText(String.valueOf(mMassPicker.getDisplayedValues()[mMassPicker.getValue()])+" "+getString(R.string.mass_with_unit));
+                    String pickedMass = mMassPicker.getDisplayedValues()[mMassPicker.getValue()];
+                    mSelectedMassValue = Double.parseDouble(pickedMass);
+                    mSelectedMass.setText(pickedMass+" "+getString(R.string.mass_with_unit));
                     mSelectedMass.setVisibility(View.VISIBLE);
                 } else {
                     mEditButton.setText(R.string.commit);
@@ -80,7 +86,7 @@ public class DefineChunkFragment extends Fragment {
             commitButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Log.i("BYRT", "onClick()");
+                    addChunkToDatabase();
                     getFragmentManager().popBackStack();
                 }
             });
@@ -88,6 +94,11 @@ public class DefineChunkFragment extends Fragment {
 
 
         return result;
+    }
+
+    private void addChunkToDatabase() {
+        Toast.makeText(getContext(), "addChunkToDatabase()", Toast.LENGTH_SHORT).show();
+
     }
 
     @Override

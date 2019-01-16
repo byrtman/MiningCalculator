@@ -18,12 +18,14 @@ public class AppRepository {
     private OreDAO oreDAO;
 
     private LiveData<List<Chunk>> allChunks;
+    private LiveData<List<Ore>> allOresList; // List of all existing Ores in the game.
 
     AppRepository(Application application) {
         AppDatabase db = AppDatabase.getDatabase(application);
         oreDAO = db.getOreDAO();
         chunkDAO = db.getChunkDAO();
         allChunks = chunkDAO.getAllChunks();
+        allOresList = oreDAO.getOres();
 
 
         deleteAllOres();

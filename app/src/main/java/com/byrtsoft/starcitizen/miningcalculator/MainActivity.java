@@ -23,6 +23,7 @@ public class MainActivity extends AppCompatActivity
         implements DefineOreFragment.OnFragmentInteractionListener {
 
     private AppViewModel appViewModel;
+    private Chunk mCurrentChunk;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,6 +68,7 @@ public class MainActivity extends AppCompatActivity
         // This is called when ore is allocated to a chunk. This should be saved to the database
         // under the user's list of committed data.
 
-        Log.d("BYRT", "onOreAllocated() callled");
+        Log.d("BYRT", "onOreAllocated("+ore.getName()+","+percent+") called");
+        mCurrentChunkValue +=
     }
 }

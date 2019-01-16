@@ -7,6 +7,8 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.NumberPicker;
 
 
 /**
@@ -27,6 +29,10 @@ public class DefineOreFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+
+    private NumberPicker mOrePicker;
+    private NumberPicker mAllocPicker;
+    private Button mCommitButton;
 
     private OnFragmentInteractionListener mListener;
 
@@ -65,7 +71,20 @@ public class DefineOreFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_define_ore, container, false);
+        View result = inflater.inflate(R.layout.fragment_define_ore, container, false);
+        mOrePicker = result.findViewById(R.id.orePicker);
+        mAllocPicker = result.findViewById(R.id.allocPicker);
+        mCommitButton = result.findViewById(R.id.buttonOreCommit);
+        mCommitButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Ore selectedOre = new Ore();
+                selectedOre.setName("derp");
+                double selectedAllocation = (double) mAllocPicker.getValue();
+                onCommitPressed(selectedOre, selectedAllocation);
+            }
+        });
+        return result;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -73,6 +92,7 @@ public class DefineOreFragment extends Fragment {
         if (mListener != null) {
             mListener.onOreAllocated(ore, percent);
         }
+        getFragmentManager().popBackStack();
     }
 
     @Override
