@@ -1,13 +1,12 @@
 package com.byrtsoft.starcitizen.miningcalculator;
 
-import android.content.Intent;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +17,8 @@ import android.widget.Toast;
 
 public class DefineChunkFragment extends Fragment {
 
+    private OnFragmentInteractionListener mListener;
+
     private NumberPicker mMassPicker;
     private TextView mSelectedMass;
     private Button mEditButton;
@@ -25,6 +26,7 @@ public class DefineChunkFragment extends Fragment {
 
     private double mSelectedMassValue;
     private double mAccumulatedValue;
+    private int mChunkId;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState)
@@ -96,13 +98,34 @@ public class DefineChunkFragment extends Fragment {
         return result;
     }
 
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        if (context instanceof DefineChunkFragment.OnFragmentInteractionListener) {
+            mListener = (DefineChunkFragment.OnFragmentInteractionListener) context;
+        } else {
+            throw new RuntimeException(context.toString()
+                    + " must implement OnFragmentInteractionListener");
+        }
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        mListener = null;
+    }
+
     private void addChunkToDatabase() {
         Toast.makeText(getContext(), "addChunkToDatabase()", Toast.LENGTH_SHORT).show();
-
+        mChunkId++;
     }
 
     @Override
     public void onPause() {
         super.onPause();
+    }
+
+    public interface OnFragmentInteractionListener {
+        void onChunkComitted(Chunk chunk);
     }
 }

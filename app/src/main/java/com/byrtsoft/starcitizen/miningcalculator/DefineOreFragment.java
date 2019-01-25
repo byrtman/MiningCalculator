@@ -1,7 +1,6 @@
 package com.byrtsoft.starcitizen.miningcalculator;
 
 import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -22,13 +21,15 @@ import android.widget.NumberPicker;
 public class DefineOreFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
+    private static final String CHUNK_ID = "param_chunkId";
     private static final String ARG_PARAM2 = "param2";
 
 
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+
+    private int mChunkId;
 
     private NumberPicker mOrePicker;
     private NumberPicker mAllocPicker;
@@ -49,10 +50,10 @@ public class DefineOreFragment extends Fragment {
      * @return A new instance of fragment DefineOreFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static DefineOreFragment newInstance(String param1, String param2) {
+    public static DefineOreFragment newInstance(int param1, String param2) {
         DefineOreFragment fragment = new DefineOreFragment();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
+        args.putInt(CHUNK_ID, param1);
         args.putString(ARG_PARAM2, param2);
         fragment.setArguments(args);
         return fragment;
@@ -62,7 +63,7 @@ public class DefineOreFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
+            mChunkId = getArguments().getInt(CHUNK_ID);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
     }
@@ -86,16 +87,16 @@ public class DefineOreFragment extends Fragment {
                 Ore selectedOre = new Ore("poop", 1, 1);
                 selectedOre.setName(mOrePicker.getDisplayedValues()[mOrePicker.getValue()]);
                 double selectedAllocation = (double) mAllocPicker.getValue();
-                onCommitPressed(selectedOre, selectedAllocation);
+                onCommitPressed(selectedOre, selectedAllocation, mChunkId);
             }
         });
         return result;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
-    public void onCommitPressed(Ore ore, double percent) {
+    public void onCommitPressed(Ore ore, double percent, int chunkId) {
         if (mListener != null) {
-            mListener.onOreAllocated(ore, percent);
+            mListener.onOreAllocated(ore, percent, chunkId);
         }
         getFragmentManager().popBackStack();
     }
@@ -103,8 +104,8 @@ public class DefineOreFragment extends Fragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
+        if (context instanceof DefineOreFragment.OnFragmentInteractionListener) {
+            mListener = (DefineOreFragment.OnFragmentInteractionListener) context;
         } else {
             throw new RuntimeException(context.toString()
                     + " must implement OnFragmentInteractionListener");
@@ -128,6 +129,6 @@ public class DefineOreFragment extends Fragment {
      * >Communicating with Other Fragments</a> for more information.
      */
     public interface OnFragmentInteractionListener {
-        void onOreAllocated(Ore ore, double percent);
+        void onOreAllocated(Ore ore, double percent, int parentChunkId);
     }
 }

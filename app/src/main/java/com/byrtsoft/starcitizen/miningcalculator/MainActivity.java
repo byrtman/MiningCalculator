@@ -20,7 +20,8 @@ import java.util.List;
 
 
 public class MainActivity extends AppCompatActivity
-        implements DefineOreFragment.OnFragmentInteractionListener {
+        implements DefineOreFragment.OnFragmentInteractionListener,
+        DefineChunkFragment.OnFragmentInteractionListener {
 
     private AppViewModel appViewModel;
     private Chunk mCurrentChunk;
@@ -67,7 +68,7 @@ public class MainActivity extends AppCompatActivity
     }
 
     @Override
-    public void onOreAllocated(Ore ore, double percent) {
+    public void onOreAllocated(Ore ore, double percent, int parentChunkId) {
         // This is called when ore is allocated to a chunk. This should be saved to the database
         // under the user's list of committed data.
 
@@ -79,5 +80,10 @@ public class MainActivity extends AppCompatActivity
 
     private double calculateChunkValue() {
         return 5.0;
+    }
+
+    @Override
+    public void onChunkComitted(Chunk chunk) {
+
     }
 }
