@@ -5,11 +5,11 @@ import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
 import android.support.annotation.NonNull;
 
-@Entity(tableName = "ore_alloc")
+@Entity(tableName = "ore_alloc_table")
 public class OreAlloc {
 
     @ColumnInfo(name = "ore")
-    private Ore mOre;
+    private Ore ore;
 
     @ColumnInfo(name = "alloc")
     private double mAllocation;
@@ -22,18 +22,34 @@ public class OreAlloc {
     @NonNull
     private int id;
 
-    public OreAlloc(@NonNull Ore ore, @NonNull double alloc, @NonNull int parent) {
-        mOre= ore;
-        mAllocation = alloc;
-        mParentChunkId = parent;
+    public OreAlloc(@NonNull Ore ore, @NonNull double mAllocation, @NonNull int mParentChunkId) {
+        this.ore= ore;
+        this.mAllocation = mAllocation;
+        this.mParentChunkId = mParentChunkId;
+    }
+
+    public int getParentChunkId() {
+        return mParentChunkId;
+    }
+
+    public Ore getOre() {
+        return ore;
+    }
+
+    public double getAllocation() {
+        return mAllocation;
+    }
+
+    public void setParentChunkId(int mParentChunkId) {
+        this.mParentChunkId = mParentChunkId;
+    }
+
+    public void setOre(Ore ore) {
+        this.ore = ore;
     }
 
     public void setAllocation(double mAllocation) {
          this.mAllocation = mAllocation;
-    }
-
-    public void setOre(Ore ore) {
-        this.mOre = ore;
     }
 
     public int getId() {

@@ -4,14 +4,19 @@ import android.arch.persistence.db.SupportSQLiteDatabase;
 import android.arch.persistence.room.Database;
 import android.arch.persistence.room.Room;
 import android.arch.persistence.room.RoomDatabase;
+import android.arch.persistence.room.TypeConverters;
 import android.content.Context;
+import android.content.res.Resources;
+import android.content.res.XmlResourceParser;
 import android.os.AsyncTask;
 import android.support.annotation.NonNull;
 
-@Database(entities = {Ore.class, Chunk.class}, version = 1)
+@Database(entities = {Ore.class, Chunk.class, OreAlloc.class}, version = 2, exportSchema = false)
+@TypeConverters({Converters.class})
 public abstract class AppDatabase extends RoomDatabase {
     public abstract OreDAO getOreDAO();
     public abstract ChunkDAO getChunkDAO();
+    public abstract OreAllocDAO getAllocDAO();
 
     private static volatile AppDatabase INSTANCE;
 
@@ -20,6 +25,7 @@ public abstract class AppDatabase extends RoomDatabase {
             synchronized (AppDatabase.class) {
                 if (INSTANCE == null) {
                     INSTANCE = Room.databaseBuilder(context.getApplicationContext(), AppDatabase.class, "app_database")
+                            .fallbackToDestructiveMigration()
                             .addCallback(sRoomDatabaseCallback)
                             .build();
                 }
@@ -34,7 +40,7 @@ public abstract class AppDatabase extends RoomDatabase {
             public void onOpen(@NonNull SupportSQLiteDatabase db) {
                 super.onOpen(db);
 
-//                new PopulateOreDbAsync(INSTANCE).execute();
+                new PopulateOreDbAsync(INSTANCE).execute();
                 new PopulateChunkDbAsync(INSTANCE).execute();
             }
         };
@@ -48,6 +54,8 @@ public abstract class AppDatabase extends RoomDatabase {
 
         @Override
         protected Void doInBackground(final Void... params) {
+            dao.deleteAllOres();
+            dao.insert(Ore.ORES());
             return null;
         }
 
@@ -62,7 +70,7 @@ public abstract class AppDatabase extends RoomDatabase {
 
         @Override
         protected Void doInBackground(final Void... params) {
-            dao.deleteAll();
+//            dao.deleteAll();
             return null;
         }
 

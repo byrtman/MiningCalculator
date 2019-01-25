@@ -20,9 +20,9 @@ public interface OreDAO {
     @Delete
     void delete(Ore... ores);
 
-    @Query("SELECT * FROM ore")
+    @Query("SELECT * FROM ore_table")
     LiveData<List<Ore>> getOres();
 
-    @Query("DELETE FROM ore")
+    @Query("DELETE FROM ore_table")
     void deleteAllOres();
 }

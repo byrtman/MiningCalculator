@@ -83,7 +83,7 @@ public class DefineOreFragment extends Fragment {
         mCommitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Ore selectedOre = new Ore();
+                Ore selectedOre = new Ore("poop", 1, 1);
                 selectedOre.setName(mOrePicker.getDisplayedValues()[mOrePicker.getValue()]);
                 double selectedAllocation = (double) mAllocPicker.getValue();
                 onCommitPressed(selectedOre, selectedAllocation);
