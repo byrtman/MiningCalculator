@@ -24,6 +24,10 @@ public class MainActivity extends AppCompatActivity
 
     private AppViewModel appViewModel;
     private Chunk mCurrentChunk;
+    private double mSelectedMassValue;
+    private double mAccumulatedValue;
+
+    private DefineChunkFragment mChunkFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,9 +39,9 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onClick(View v) {
                 // Start the fragment, not the activity
-                DefineChunkFragment chunkFragment = new DefineChunkFragment();
-                chunkFragment.setArguments(getIntent().getExtras());
-                FragmentTransaction transaction = getSupportFragmentManager().beginTransaction().add(android.R.id.content, chunkFragment);
+                mChunkFragment = new DefineChunkFragment();
+                mChunkFragment.setArguments(getIntent().getExtras());
+                FragmentTransaction transaction = getSupportFragmentManager().beginTransaction().add(android.R.id.content, mChunkFragment);
                 transaction.addToBackStack(null);
                 transaction.commit();
             }
@@ -62,13 +66,18 @@ public class MainActivity extends AppCompatActivity
 
     }
 
-
     @Override
     public void onOreAllocated(Ore ore, double percent) {
         // This is called when ore is allocated to a chunk. This should be saved to the database
         // under the user's list of committed data.
 
         Log.d("BYRT", "onOreAllocated("+ore.getName()+","+percent+") called");
-        mCurrentChunkValue +=
+        mSelectedMassValue = calculateChunkValue();
+        mAccumulatedValue += 5;
+//        mChunkFragment.setArguments();
+    }
+
+    private double calculateChunkValue() {
+        return 5.0;
     }
 }

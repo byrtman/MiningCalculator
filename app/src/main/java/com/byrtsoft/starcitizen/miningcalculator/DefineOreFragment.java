@@ -73,13 +73,18 @@ public class DefineOreFragment extends Fragment {
         // Inflate the layout for this fragment
         View result = inflater.inflate(R.layout.fragment_define_ore, container, false);
         mOrePicker = result.findViewById(R.id.orePicker);
+        mOrePicker.setDisplayedValues(getResources().getStringArray(R.array.ore_types));
+        mOrePicker.setMinValue(0);
+        mOrePicker.setMaxValue(mOrePicker.getDisplayedValues().length-1);
         mAllocPicker = result.findViewById(R.id.allocPicker);
+        mAllocPicker.setMinValue(0);
+        mAllocPicker.setMaxValue(100);
         mCommitButton = result.findViewById(R.id.buttonOreCommit);
         mCommitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Ore selectedOre = new Ore();
-                selectedOre.setName("derp");
+                selectedOre.setName(mOrePicker.getDisplayedValues()[mOrePicker.getValue()]);
                 double selectedAllocation = (double) mAllocPicker.getValue();
                 onCommitPressed(selectedOre, selectedAllocation);
             }

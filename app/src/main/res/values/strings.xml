@@ -40,7 +40,16 @@
     </string-array>
     <string name="add_chunk">Add Chunk</string>
     <string name="ore_name">ore_name</string>
-    <string name="commit">Commit</string>
+    <string name="commit">Done</string>
+
+    <string-array name="ore_types">
+        <item>Diamond</item>
+        <item>Tungsten</item>
+        <item>Copper</item>
+        <item>Aluminum</item>
+        <item>Agricium</item>
+        <item>Laranite</item>
+    </string-array>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
