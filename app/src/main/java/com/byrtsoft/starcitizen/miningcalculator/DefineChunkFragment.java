@@ -112,8 +112,6 @@ public class DefineChunkFragment extends Fragment {
             @Override
             public void onChanged(@Nullable List<OreAlloc> allocs) {
                 oreAllocListAdapter.setAllocs(allocs);
-                final TextView view = getView().findViewById(R.id.resultsTotalValue);
-//                view.setText(String.valueOf(appViewModel.getAllAllocs(mChunkId))+" "+ getString(R.string.value_with_unit));
             }
         });
 
@@ -139,7 +137,9 @@ public class DefineChunkFragment extends Fragment {
 
     private Chunk createChunk() {
         Toast.makeText(getContext(), "createChunk()", Toast.LENGTH_SHORT).show();
-        return new Chunk(mSelectedMassValue);
+        Chunk chunk = new Chunk(mSelectedMassValue);
+        mChunkId = chunk.getId();
+        return chunk;
     }
 
     @Override

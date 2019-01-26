@@ -25,7 +25,6 @@ public class MainActivity extends AppCompatActivity
 
     private AppViewModel appViewModel;
     private Chunk mCurrentChunk;
-    private double mSelectedMassValue;
     private ArrayList<OreAlloc> mAccumulatedAllocs = new ArrayList<>();
     private static int mCurrentChunkId;
 
@@ -42,7 +41,6 @@ public class MainActivity extends AppCompatActivity
             public void onClick(View v) {
                 // Start the fragment, not the activity
                 mChunkFragment = new DefineChunkFragment();
-                mCurrentChunkId++;
                 mChunkFragment.setArguments(getIntent().getExtras());
                 FragmentTransaction transaction = getSupportFragmentManager().beginTransaction().add(android.R.id.content, mChunkFragment);
                 transaction.addToBackStack(null);
@@ -93,7 +91,7 @@ public class MainActivity extends AppCompatActivity
     public void onChunkCommitted(Chunk chunk) {
         mCurrentChunk = chunk;
         mCurrentChunk.setValue(calculateChunkValue());
-        mCurrentChunk.setId(mCurrentChunkId);
+        mCurrentChunkId = mCurrentChunk.getId();
         appViewModel.insertChunk(chunk);
         Log.d("BYRT", "onChunkCommitted("+chunk.getId()+":"+chunk.getMass()+") called");
     }

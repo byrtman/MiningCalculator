@@ -40,8 +40,8 @@ public class OreAllocListAdapter extends RecyclerView.Adapter<OreAllocListAdapte
     public void onBindViewHolder(@NonNull OreAllocViewHolder holder, int position) {
         if (allocs != null) {
             OreAlloc current = allocs.get(position);
-            holder.allocOreNameItemView.setText(String.format(Locale.US, "%.2f %s", current.getOre().getName(), "Kg"));
-            holder.allocPercentItemView.setText(String.format(Locale.US, "%s%.0f", "$", current.getAllocation()));
+            holder.allocOreNameItemView.setText(String.format(Locale.US, "%s", current.getOre().getName()));
+            holder.allocPercentItemView.setText(String.format(Locale.US, "%.0f%s", "%", current.getAllocation()));
         } else {
             holder.allocOreNameItemView.setText(R.string.nothing);
         }
