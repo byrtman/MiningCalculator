@@ -18,9 +18,8 @@ public class Chunk {
     @ColumnInfo(name = "value")
     private double mValue;
 
-    public Chunk(@NonNull double mass, @NonNull double value) {
+    public Chunk(@NonNull double mass) {
         mMass = mass;
-        mValue = value;
     }
 
     public int getId() {

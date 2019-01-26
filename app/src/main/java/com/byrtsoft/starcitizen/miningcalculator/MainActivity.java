@@ -3,7 +3,6 @@ package com.byrtsoft.starcitizen.miningcalculator;
 
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
@@ -16,6 +15,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -26,7 +26,8 @@ public class MainActivity extends AppCompatActivity
     private AppViewModel appViewModel;
     private Chunk mCurrentChunk;
     private double mSelectedMassValue;
-    private double mAccumulatedValue;
+    private ArrayList<OreAlloc> mAccumulatedAllocs = new ArrayList<>();
+    private static int mCurrentChunkId;
 
     private DefineChunkFragment mChunkFragment;
 
@@ -41,6 +42,7 @@ public class MainActivity extends AppCompatActivity
             public void onClick(View v) {
                 // Start the fragment, not the activity
                 mChunkFragment = new DefineChunkFragment();
+                mCurrentChunkId++;
                 mChunkFragment.setArguments(getIntent().getExtras());
                 FragmentTransaction transaction = getSupportFragmentManager().beginTransaction().add(android.R.id.content, mChunkFragment);
                 transaction.addToBackStack(null);
@@ -50,19 +52,21 @@ public class MainActivity extends AppCompatActivity
 
         RecyclerView recyclerView = findViewById(R.id.recyclerview);
         recyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.HORIZONTAL));
-        final ChunkListAdapter adapter = new ChunkListAdapter(this);
-        recyclerView.setAdapter(adapter);
+        final ChunkListAdapter chunkListAdapter = new ChunkListAdapter(this);
+        recyclerView.setAdapter(chunkListAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         appViewModel = ViewModelProviders.of(this).get(AppViewModel.class);
         appViewModel.getAllChunks().observe(this, new Observer<List<Chunk>>() {
             @Override
             public void onChanged(@Nullable List<Chunk> chunks) {
-                adapter.setChunks(chunks);
+                chunkListAdapter.setChunks(chunks);
                 final TextView view = findViewById(R.id.resultsTotalValue);
                 view.setText(String.valueOf(appViewModel.getAllChunksValue())+" "+ getString(R.string.value_with_unit));
             }
         });
+
+
 
 
     }
@@ -73,17 +77,24 @@ public class MainActivity extends AppCompatActivity
         // under the user's list of committed data.
 
         Log.d("BYRT", "onOreAllocated("+ore.getName()+","+percent+") called");
-        mSelectedMassValue = calculateChunkValue();
-        mAccumulatedValue += 5;
-//        mChunkFragment.setArguments();
+        OreAlloc alloc = new OreAlloc(ore, percent, mCurrentChunkId);
+        mAccumulatedAllocs.add(alloc);
+        appViewModel.insertOreAlloc(alloc);
     }
 
     private double calculateChunkValue() {
-        return 5.0;
+        double result = 0.0;
+        double totalMass = mCurrentChunk.getMass();
+
+        return result;
     }
 
     @Override
-    public void onChunkComitted(Chunk chunk) {
-
+    public void onChunkCommitted(Chunk chunk) {
+        mCurrentChunk = chunk;
+        mCurrentChunk.setValue(calculateChunkValue());
+        mCurrentChunk.setId(mCurrentChunkId);
+        appViewModel.insertChunk(chunk);
+        Log.d("BYRT", "onChunkCommitted("+chunk.getId()+":"+chunk.getMass()+") called");
     }
 }

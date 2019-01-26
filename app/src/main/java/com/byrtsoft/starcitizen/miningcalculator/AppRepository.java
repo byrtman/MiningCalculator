@@ -14,7 +14,7 @@ public class AppRepository {
 
     private LiveData<List<Ore>> allOresList; // List of all existing Ores in the game.
     private LiveData<List<Chunk>> allChunks;
-//    private LiveData<List<OreAlloc>> allocationsByChunkId;
+    private LiveData<List<OreAlloc>> allocationsByChunkId;
 
     AppRepository(Application application) {
         AppDatabase db = AppDatabase.getDatabase(application);
@@ -50,9 +50,10 @@ public class AppRepository {
     }
 
 
-//    LiveData<List<OreAlloc>> getAllAllocs() {
-//        return allocationsByChunkId;
-//    }
+    LiveData<List<OreAlloc>> getAllAllocs(int chunkId) {
+        allocationsByChunkId = allocDAO.getOreAllocs(chunkId);
+        return allocationsByChunkId;
+    }
 
     public void insertOreAlloc (OreAlloc alloc) {
         new insertOreAsyncTask(allocDAO).execute(alloc);

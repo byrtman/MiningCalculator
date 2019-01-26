@@ -2,7 +2,8 @@
     <string name="app_name">Mining Calculator</string>
     <string name="set_mass">Set Mass</string>
     <string name="edit_mass">Edit Mass</string>
-    <string name="mass_with_unit">Kg</string>
+    <string name="mass_unit">Kg</string>
+    <string name="alloc_unit">%</string>
     <string name="add_ore">Add Ore</string>
     <string name="nothing">zippo!</string>
     <string name="value_with_unit">aUEC</string>

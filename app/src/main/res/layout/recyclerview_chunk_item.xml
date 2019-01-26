@@ -15,7 +15,7 @@
         android:layout_marginTop="2dp"
         android:background="@color/colorPrimary"
         android:gravity="end"
-        android:text="@string/mass_with_unit"
+        android:text="@string/mass_unit"
         android:textColor="@color/colorWarn"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

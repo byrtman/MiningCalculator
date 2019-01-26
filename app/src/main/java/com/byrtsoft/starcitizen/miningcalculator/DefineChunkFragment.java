@@ -1,5 +1,7 @@
 package com.byrtsoft.starcitizen.miningcalculator;
 
+import android.arch.lifecycle.Observer;
+import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -7,6 +9,9 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.widget.DividerItemDecoration;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +19,8 @@ import android.widget.Button;
 import android.widget.NumberPicker;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.util.List;
 
 public class DefineChunkFragment extends Fragment {
 
@@ -27,6 +34,7 @@ public class DefineChunkFragment extends Fragment {
     private double mSelectedMassValue;
     private double mAccumulatedValue;
     private int mChunkId;
+    private AppViewModel appViewModel;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState)
@@ -59,7 +67,7 @@ public class DefineChunkFragment extends Fragment {
                     mMassPicker.setVisibility(View.INVISIBLE);
                     String pickedMass = mMassPicker.getDisplayedValues()[mMassPicker.getValue()];
                     mSelectedMassValue = Double.parseDouble(pickedMass);
-                    mSelectedMass.setText(pickedMass+" "+getString(R.string.mass_with_unit));
+                    mSelectedMass.setText(pickedMass+" "+getString(R.string.mass_unit));
                     mSelectedMass.setVisibility(View.VISIBLE);
                 } else {
                     mEditButton.setText(R.string.commit);
@@ -88,12 +96,26 @@ public class DefineChunkFragment extends Fragment {
             commitButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    addChunkToDatabase();
+                    mListener.onChunkCommitted(createChunk());
                     getFragmentManager().popBackStack();
                 }
             });
         }
 
+        RecyclerView recyclerView = result.findViewById(R.id.recyclerview);
+        recyclerView.addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.HORIZONTAL));
+        final OreAllocListAdapter oreAllocListAdapter = new OreAllocListAdapter(getContext());
+        recyclerView.setAdapter(oreAllocListAdapter);
+
+        appViewModel = ViewModelProviders.of(getActivity()).get(AppViewModel.class);
+        appViewModel.getAllAllocs(mChunkId).observe(getActivity(), new Observer<List<OreAlloc>>() {
+            @Override
+            public void onChanged(@Nullable List<OreAlloc> allocs) {
+                oreAllocListAdapter.setAllocs(allocs);
+                final TextView view = getView().findViewById(R.id.resultsTotalValue);
+//                view.setText(String.valueOf(appViewModel.getAllAllocs(mChunkId))+" "+ getString(R.string.value_with_unit));
+            }
+        });
 
         return result;
     }
@@ -115,9 +137,9 @@ public class DefineChunkFragment extends Fragment {
         mListener = null;
     }
 
-    private void addChunkToDatabase() {
-        Toast.makeText(getContext(), "addChunkToDatabase()", Toast.LENGTH_SHORT).show();
-        mChunkId++;
+    private Chunk createChunk() {
+        Toast.makeText(getContext(), "createChunk()", Toast.LENGTH_SHORT).show();
+        return new Chunk(mSelectedMassValue);
     }
 
     @Override
@@ -126,6 +148,6 @@ public class DefineChunkFragment extends Fragment {
     }
 
     public interface OnFragmentInteractionListener {
-        void onChunkComitted(Chunk chunk);
+        void onChunkCommitted(Chunk chunk);
     }
 }

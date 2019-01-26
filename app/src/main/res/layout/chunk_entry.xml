@@ -48,7 +48,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                android:text="@string/mass_with_unit"
+                android:text="@string/mass_unit"
                 android:textColor="@color/colorWarn"
                 android:textSize="24sp"
                 android:visibility="invisible"
@@ -76,7 +76,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/colorPrimaryDark"
-            tools:listitem="@layout/recyclerview_item"/>
+            tools:listitem="@layout/recyclerview_chunk_item"/>
 
         <FrameLayout
             android:layout_width="match_parent"
