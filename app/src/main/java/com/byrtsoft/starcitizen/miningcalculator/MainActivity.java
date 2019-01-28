@@ -48,7 +48,7 @@ public class MainActivity extends AppCompatActivity
             }
         });
 
-        RecyclerView recyclerView = findViewById(R.id.recyclerview);
+        RecyclerView recyclerView = findViewById(R.id.chunk_recyclerview);
         recyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.HORIZONTAL));
         final ChunkListAdapter chunkListAdapter = new ChunkListAdapter(this);
         recyclerView.setAdapter(chunkListAdapter);
@@ -74,7 +74,7 @@ public class MainActivity extends AppCompatActivity
         // This is called when ore is allocated to a chunk. This should be saved to the database
         // under the user's list of committed data.
 
-        Log.d("BYRT", "onOreAllocated("+ore.getName()+","+percent+") called");
+        Log.d("BYRT", "onOreAllocated("+ore.getName()+","+percent+") called for chunkId:" + mCurrentChunkId);
         OreAlloc alloc = new OreAlloc(ore, percent, mCurrentChunkId);
         mAccumulatedAllocs.add(alloc);
         appViewModel.insertOreAlloc(alloc);

@@ -70,7 +70,7 @@ public abstract class AppDatabase extends RoomDatabase {
 
         @Override
         protected Void doInBackground(final Void... params) {
-//            dao.deleteAll();
+            dao.deleteAll();
             return null;
         }
 

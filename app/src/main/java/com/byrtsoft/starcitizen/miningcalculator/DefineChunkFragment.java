@@ -10,7 +10,6 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.DividerItemDecoration;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -102,13 +101,13 @@ public class DefineChunkFragment extends Fragment {
             });
         }
 
-        RecyclerView recyclerView = result.findViewById(R.id.recyclerview);
-        recyclerView.addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.HORIZONTAL));
+        RecyclerView recyclerView = result.findViewById(R.id.alloc_recyclerview);
+        recyclerView.addItemDecoration(new DividerItemDecoration(recyclerView.getContext(), DividerItemDecoration.HORIZONTAL));
         final OreAllocListAdapter oreAllocListAdapter = new OreAllocListAdapter(getContext());
         recyclerView.setAdapter(oreAllocListAdapter);
 
         appViewModel = ViewModelProviders.of(getActivity()).get(AppViewModel.class);
-        appViewModel.getAllAllocs(mChunkId).observe(getActivity(), new Observer<List<OreAlloc>>() {
+        appViewModel.getAllAllocs(mChunkId).observe(this, new Observer<List<OreAlloc>>() {
             @Override
             public void onChanged(@Nullable List<OreAlloc> allocs) {
                 oreAllocListAdapter.setAllocs(allocs);
@@ -136,9 +135,9 @@ public class DefineChunkFragment extends Fragment {
     }
 
     private Chunk createChunk() {
-        Toast.makeText(getContext(), "createChunk()", Toast.LENGTH_SHORT).show();
         Chunk chunk = new Chunk(mSelectedMassValue);
         mChunkId = chunk.getId();
+        Toast.makeText(getContext(), "createChunk("+mChunkId+")", Toast.LENGTH_SHORT).show();
         return chunk;
     }
 

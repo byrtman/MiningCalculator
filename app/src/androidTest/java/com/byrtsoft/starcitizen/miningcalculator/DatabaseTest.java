@@ -35,12 +35,12 @@ public class DatabaseTest {
     }
 
     @After
-    public void doAfter() throws IOException {
+    public void doAfter() {
         mDb.close();
     }
 
     @Test
-    public void testCRUD() throws Exception {
+    public void testCRUD() {
         Log.d(TAG, "testing CRUD...");
         Ore ore = new Ore("Test", 2.0, 6.9);
         ore.setName("Testicle");

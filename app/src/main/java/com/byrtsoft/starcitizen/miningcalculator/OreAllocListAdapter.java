@@ -3,6 +3,7 @@ package com.byrtsoft.starcitizen.miningcalculator;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -37,11 +38,11 @@ public class OreAllocListAdapter extends RecyclerView.Adapter<OreAllocListAdapte
     }
 
     @Override
-    public void onBindViewHolder(@NonNull OreAllocViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull OreAllocViewHolder holder,  int position) {
         if (allocs != null) {
             OreAlloc current = allocs.get(position);
             holder.allocOreNameItemView.setText(String.format(Locale.US, "%s", current.getOre().getName()));
-            holder.allocPercentItemView.setText(String.format(Locale.US, "%.0f%s", "%", current.getAllocation()));
+            holder.allocPercentItemView.setText(String.format(Locale.US, "%.0f%s",current.getAllocation(),"%"));
         } else {
             holder.allocOreNameItemView.setText(R.string.nothing);
         }
@@ -49,6 +50,7 @@ public class OreAllocListAdapter extends RecyclerView.Adapter<OreAllocListAdapte
 
     void setAllocs(List<OreAlloc> allocs) {
         this.allocs = allocs;
+        Log.d("BYRT", "number of oreAllocs = " + allocs.size());
         notifyDataSetChanged();
     }
 

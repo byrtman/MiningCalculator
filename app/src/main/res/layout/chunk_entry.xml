@@ -72,11 +72,11 @@
         </android.support.constraint.ConstraintLayout>
 
         <android.support.v7.widget.RecyclerView
-            android:id="@+id/recyclerview"
+            android:id="@+id/alloc_recyclerview"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/colorPrimaryDark"
-            tools:listitem="@layout/recyclerview_chunk_item"/>
+            tools:listitem="@layout/recyclerview_alloc_item" />
 
         <FrameLayout
             android:layout_width="match_parent"
