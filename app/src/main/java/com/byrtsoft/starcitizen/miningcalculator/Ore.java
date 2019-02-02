@@ -45,6 +45,10 @@ public class Ore {
         mPrice = val;
     }
 
+    public String toString() {
+        return new StringBuilder().append(getName()).append("_").append(getPrice()).toString();
+    }
+
     public static Ore[] ORES() {
         return new Ore[] {
                 new Ore("Agricium", 2.0, 5.1),

@@ -59,4 +59,8 @@ public class OreAlloc {
     public void setId(int id) {
         this.id = id;
     }
+
+    public String toString() {
+        return new StringBuilder().append(getParentChunkId()).append(",").append(getAllocation()).append(" => ").append(getOre().toString()).toString();
+    }
 }

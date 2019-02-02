@@ -10,6 +10,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.DividerItemDecoration;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -105,6 +106,7 @@ public class DefineChunkFragment extends Fragment {
         recyclerView.addItemDecoration(new DividerItemDecoration(recyclerView.getContext(), DividerItemDecoration.HORIZONTAL));
         final OreAllocListAdapter oreAllocListAdapter = new OreAllocListAdapter(getContext());
         recyclerView.setAdapter(oreAllocListAdapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
         appViewModel = ViewModelProviders.of(getActivity()).get(AppViewModel.class);
         appViewModel.getAllAllocs(mChunkId).observe(this, new Observer<List<OreAlloc>>() {

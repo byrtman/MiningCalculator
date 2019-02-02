@@ -51,6 +51,10 @@ public class OreAllocListAdapter extends RecyclerView.Adapter<OreAllocListAdapte
     void setAllocs(List<OreAlloc> allocs) {
         this.allocs = allocs;
         Log.d("BYRT", "number of oreAllocs = " + allocs.size());
+        for (OreAlloc o : allocs
+             ) {
+            Log.d("BYRT", o.toString());
+        }
         notifyDataSetChanged();
     }
 

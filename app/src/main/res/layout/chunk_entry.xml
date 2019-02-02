@@ -6,7 +6,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:background="@color/colorPrimaryDark"
     android:orientation="vertical"
-    tools:context=".MainActivity">
+    tools:context=".DefineChunkFragment">
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/addOreFAButton"

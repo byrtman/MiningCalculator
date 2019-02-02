@@ -42,6 +42,7 @@ public abstract class AppDatabase extends RoomDatabase {
 
                 new PopulateOreDbAsync(INSTANCE).execute();
                 new PopulateChunkDbAsync(INSTANCE).execute();
+                new PopulateOreAllocDbAsync(INSTANCE).execute();
             }
         };
 
@@ -73,6 +74,20 @@ public abstract class AppDatabase extends RoomDatabase {
             dao.deleteAll();
             return null;
         }
+    }
 
+
+    private static class PopulateOreAllocDbAsync extends AsyncTask<Void, Void, Void> {
+        private final OreAllocDAO dao;
+
+        PopulateOreAllocDbAsync(AppDatabase db) {
+            this.dao = db.getAllocDAO();
+        }
+
+        @Override
+        protected Void doInBackground(final Void... params) {
+            dao.deleteAllOreAllocs();
+            return null;
+        }
     }
 }
