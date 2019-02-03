@@ -60,6 +60,10 @@ public class OreAlloc {
         this.id = id;
     }
 
+    public double calculateValue(double mass) {
+        return ore.getPrice() * mAllocation * mass;
+    }
+
     public String toString() {
         return new StringBuilder().append(getParentChunkId()).append(",").append(getAllocation()).append(" => ").append(getOre().toString()).toString();
     }

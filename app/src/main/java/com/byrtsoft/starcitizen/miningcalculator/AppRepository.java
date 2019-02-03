@@ -49,6 +49,24 @@ public class AppRepository {
         }
     }
 
+    public void deleteAllChunks () {
+        new deleteAllChunkAsyncTask(chunkDAO).execute();
+    }
+
+    private static class deleteAllChunkAsyncTask extends AsyncTask<Void, Void, Void> {
+        private ChunkDAO asyncTaskDao;
+
+        deleteAllChunkAsyncTask(ChunkDAO dao) {
+            asyncTaskDao = dao;
+        }
+
+        @Override
+        protected Void doInBackground(final Void... params) {
+            asyncTaskDao.deleteAll();
+            return null;
+        }
+    }
+
 
     LiveData<List<OreAlloc>> getAllAllocs(int chunkId) {
         allocationsByChunkId = allocDAO.getOreAllocs(chunkId);

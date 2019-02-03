@@ -73,17 +73,25 @@ public class DefineOreFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View result = inflater.inflate(R.layout.fragment_define_ore, container, false);
+
+        // init the ore picker
         mOrePicker = result.findViewById(R.id.orePicker);
-        mOrePicker.setDisplayedValues(getResources().getStringArray(R.array.ore_types));
+        mOrePicker.setDisplayedValues(getOreNames());
         mOrePicker.setMinValue(0);
         mOrePicker.setMaxValue(mOrePicker.getDisplayedValues().length-1);
+
+        // init the allocation picker
         mAllocPicker = result.findViewById(R.id.allocPicker);
         mAllocPicker.setMinValue(0);
         mAllocPicker.setMaxValue(100);
+
+        // init the commit button
         mCommitButton = result.findViewById(R.id.buttonOreCommit);
         mCommitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                // TODO: find the selected ore from the Ore database
                 Ore selectedOre = new Ore("poop", 1, 1);
                 selectedOre.setName(mOrePicker.getDisplayedValues()[mOrePicker.getValue()]);
                 double selectedAllocation = (double) mAllocPicker.getValue();
@@ -93,7 +101,14 @@ public class DefineOreFragment extends Fragment {
         return result;
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
+    private String[] getOreNames() {
+        String[] result = new String[Ore.ORES().length];
+        for (int i = 0; i < Ore.ORES().length; i++) {
+            result[i] = Ore.ORES()[i].getName();
+        }
+        return result;
+    }
+
     public void onCommitPressed(Ore ore, double percent, int chunkId) {
         if (mListener != null) {
             mListener.onOreAllocated(ore, percent, chunkId);

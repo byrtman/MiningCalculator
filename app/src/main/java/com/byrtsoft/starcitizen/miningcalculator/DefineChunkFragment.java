@@ -35,6 +35,7 @@ public class DefineChunkFragment extends Fragment {
     private double mAccumulatedValue;
     private int mChunkId;
     private AppViewModel appViewModel;
+    private OreAllocListAdapter oreAllocListAdapter;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState)
@@ -67,6 +68,7 @@ public class DefineChunkFragment extends Fragment {
                     mMassPicker.setVisibility(View.INVISIBLE);
                     String pickedMass = mMassPicker.getDisplayedValues()[mMassPicker.getValue()];
                     mSelectedMassValue = Double.parseDouble(pickedMass);
+                    oreAllocListAdapter.setMassToAllocate(mSelectedMassValue);
                     mSelectedMass.setText(pickedMass+" "+getString(R.string.mass_unit));
                     mSelectedMass.setVisibility(View.VISIBLE);
                 } else {
@@ -82,8 +84,8 @@ public class DefineChunkFragment extends Fragment {
         addNewOreButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DefineOreFragment oreFragment = new DefineOreFragment();
-                oreFragment.setArguments(getActivity().getIntent().getExtras());
+                DefineOreFragment oreFragment = DefineOreFragment.newInstance(mChunkId++, null);
+//                oreFragment.setArguments(getActivity().getIntent().getExtras());
                 FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction().add(android.R.id.content, oreFragment);
                 transaction.addToBackStack(null);
                 transaction.commit();
@@ -96,7 +98,10 @@ public class DefineChunkFragment extends Fragment {
             commitButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    mListener.onChunkCommitted(createChunk());
+                    if (mSelectedMassValue > 0) {
+                        mListener.onChunkCommitted(createChunk());
+                    }
+                    oreAllocListAdapter.resetMass();
                     getFragmentManager().popBackStack();
                 }
             });
@@ -104,7 +109,7 @@ public class DefineChunkFragment extends Fragment {
 
         RecyclerView recyclerView = result.findViewById(R.id.alloc_recyclerview);
         recyclerView.addItemDecoration(new DividerItemDecoration(recyclerView.getContext(), DividerItemDecoration.HORIZONTAL));
-        final OreAllocListAdapter oreAllocListAdapter = new OreAllocListAdapter(getContext());
+        oreAllocListAdapter = new OreAllocListAdapter(getContext());
         recyclerView.setAdapter(oreAllocListAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 

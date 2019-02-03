@@ -33,4 +33,9 @@ public class AppViewModel extends AndroidViewModel {
 
     public void insertChunk(Chunk chunk) { repository.insertChunk(chunk);}
     public void insertOreAlloc(OreAlloc alloc) { repository.insertOreAlloc(alloc);}
+
+    public void resetAllData() {
+        repository.deleteAllOreAllocs();
+        repository.deleteAllChunks();
+    }
 }

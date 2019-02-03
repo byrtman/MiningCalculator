@@ -17,16 +17,19 @@ public class OreAllocListAdapter extends RecyclerView.Adapter<OreAllocListAdapte
     class OreAllocViewHolder extends RecyclerView.ViewHolder {
         private final TextView allocOreNameItemView;
         private final TextView allocPercentItemView;
+        private final TextView allocValueItemView;
 
         private OreAllocViewHolder(View itemView) {
             super(itemView);
             allocOreNameItemView = itemView.findViewById(R.id.oreNameTextView);
             allocPercentItemView = itemView.findViewById(R.id.percentTextView);
+            allocValueItemView = itemView.findViewById(R.id.valueTextView);
         }
     }
 
     private final LayoutInflater inflater;
     private List<OreAlloc> allocs; // cached copy of allocs
+    private double mChunkMass; // the chunk mass we are allocating
 
     OreAllocListAdapter(Context context) { inflater = LayoutInflater.from(context); }
 
@@ -40,12 +43,24 @@ public class OreAllocListAdapter extends RecyclerView.Adapter<OreAllocListAdapte
     @Override
     public void onBindViewHolder(@NonNull OreAllocViewHolder holder,  int position) {
         if (allocs != null) {
-            OreAlloc current = allocs.get(position);
-            holder.allocOreNameItemView.setText(String.format(Locale.US, "%s", current.getOre().getName()));
-            holder.allocPercentItemView.setText(String.format(Locale.US, "%.0f%s",current.getAllocation(),"%"));
+            OreAlloc alloc = allocs.get(position);
+            holder.allocOreNameItemView.setText(String.format(Locale.US, "%s", alloc.getOre().getName()));
+            holder.allocPercentItemView.setText(String.format(Locale.US, "%.0f%s",alloc.getAllocation(),inflater.getContext().getString(R.string.alloc_unit)));
+            holder.allocValueItemView.setText(String.format(Locale.US, "%s%.0f", inflater.getContext().getString(R.string.value_unit), alloc.calculateValue(mChunkMass)));
         } else {
             holder.allocOreNameItemView.setText(R.string.nothing);
         }
+    }
+
+    public void setMassToAllocate(double mass) {
+        if (mChunkMass > 0.0) {
+            throw new AssertionError("Attempting to reset chunk mass when already set!");
+        }
+        mChunkMass = mass;
+    }
+
+    public void resetMass() {
+        mChunkMass = 0.0;
     }
 
     void setAllocs(List<OreAlloc> allocs) {

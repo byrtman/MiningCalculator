@@ -1,6 +1,7 @@
 package com.byrtsoft.starcitizen.miningcalculator;
 
 
+import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
@@ -11,7 +12,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
@@ -60,13 +65,23 @@ public class MainActivity extends AppCompatActivity
             public void onChanged(@Nullable List<Chunk> chunks) {
                 chunkListAdapter.setChunks(chunks);
                 final TextView view = findViewById(R.id.resultsTotalValue);
-                view.setText(String.valueOf(appViewModel.getAllChunksValue())+" "+ getString(R.string.value_with_unit));
+                view.setText(String.valueOf(appViewModel.getAllChunksValue())+" "+ getString(R.string.value_unit));
             }
         });
+    }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
 
-
-
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        Log.d("BYRT", "Item " + item + " selected");
+        appViewModel.resetAllData();
+        return super.onOptionsItemSelected(item);
     }
 
     @Override
@@ -83,7 +98,12 @@ public class MainActivity extends AppCompatActivity
     private double calculateChunkValue() {
         double result = 0.0;
         double totalMass = mCurrentChunk.getMass();
-
+        List<OreAlloc> allocs = appViewModel.getAllAllocs(mCurrentChunkId).getValue();
+        if (allocs != null) {
+            for (OreAlloc alloc: allocs) {
+                result += alloc.calculateValue(totalMass);
+            }
+        }
         return result;
     }
 
@@ -92,7 +112,7 @@ public class MainActivity extends AppCompatActivity
         mCurrentChunk = chunk;
         mCurrentChunk.setValue(calculateChunkValue());
         mCurrentChunkId = mCurrentChunk.getId();
-        appViewModel.insertChunk(chunk);
+        appViewModel.insertChunk(mCurrentChunk);
         Log.d("BYRT", "onChunkCommitted("+chunk.getId()+":"+chunk.getMass()+") called");
     }
 }

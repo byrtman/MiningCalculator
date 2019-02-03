@@ -9,6 +9,7 @@ A calculator app that helps Star Citizen miners determine the value of rocks bef
 1. Prevent adding empty chunks
 1. Change chunk Id at right time, so each allocation list is accurate to each chunk
 1. Add total value of chunk to chunk define screen.
+1. Start with initial default value of 100% Inert.
 1. Reduce the remaining allocation percentages in the picker after an allocation is set
 1. Remove a set ore from the picker to prevent dupes.
 1. Hook up the reset runs menu button to clear the data for the app.
