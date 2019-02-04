@@ -46,7 +46,7 @@ public class Ore {
     }
 
     public String toString() {
-        return new StringBuilder().append(getName()).append("_").append(getPrice()).toString();
+        return new StringBuilder().append(getName()).append(" | $").append(getPrice()).toString();
     }
 
     public static Ore[] ORES() {

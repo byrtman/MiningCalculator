@@ -3,6 +3,7 @@ package com.byrtsoft.starcitizen.miningcalculator;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,6 +24,7 @@ public class DefineOreFragment extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String CHUNK_ID = "param_chunkId";
     private static final String ARG_PARAM2 = "param2";
+    private static String TAG = "BYRT";
 
 
     // TODO: Rename and change types of parameters
@@ -90,15 +92,22 @@ public class DefineOreFragment extends Fragment {
         mCommitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                // TODO: find the selected ore from the Ore database
-                Ore selectedOre = new Ore("poop", 1, 1);
-                selectedOre.setName(mOrePicker.getDisplayedValues()[mOrePicker.getValue()]);
+                Ore selectedOre = findOre(mOrePicker.getDisplayedValues()[mOrePicker.getValue()]);
+                Log.d(TAG, "selected Ore = " + selectedOre);
                 double selectedAllocation = (double) mAllocPicker.getValue();
                 onCommitPressed(selectedOre, selectedAllocation, mChunkId);
             }
         });
         return result;
+    }
+
+    private Ore findOre(String name) {
+        for (int i = 0; i < Ore.ORES().length; i++) {
+            if (name == Ore.ORES()[i].getName()) {
+                return Ore.ORES()[i];
+            }
+        }
+        return null;
     }
 
     private String[] getOreNames() {

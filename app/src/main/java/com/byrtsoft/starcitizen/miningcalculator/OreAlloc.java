@@ -61,7 +61,7 @@ public class OreAlloc {
     }
 
     public double calculateValue(double mass) {
-        return ore.getPrice() * mAllocation * mass;
+        return ore.getPrice() * (mAllocation * 0.01 * mass) * ore.getInvDensity();
     }
 
     public String toString() {
