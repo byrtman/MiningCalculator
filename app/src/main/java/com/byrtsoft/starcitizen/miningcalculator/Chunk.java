@@ -45,4 +45,13 @@ public class Chunk {
     public void setValue(double value) {
         mValue = value;
     }
+
+    public String toString() {
+        StringBuilder result = new StringBuilder();
+        result.append("{ Chunk:");
+        result.append(" ").append("id: ").append(getId()).append(" ");
+        result.append("| ").append("mass: ").append(getMass()).append(" ");
+        result.append("| ").append("value: ").append(getValue()).append(" }");
+        return result.toString();
+    }
 }

@@ -15,6 +15,8 @@ public class AppRepository {
     private LiveData<List<Ore>> allOresList; // List of all existing Ores in the game.
     private LiveData<List<Chunk>> allChunks;
     private LiveData<List<OreAlloc>> allocationsByChunkId;
+    private LiveData<Chunk> currentChunk;
+    private static long lastInsertedChunkId;
 
     AppRepository(Application application) {
         AppDatabase db = AppDatabase.getDatabase(application);
@@ -27,13 +29,39 @@ public class AppRepository {
 
     }
 
+    // LIVEDATA
+
     LiveData<List<Chunk>> getAllChunks() {
         return allChunks;
     }
-
-    public void insertChunk (Chunk chunk) {
-        new insertChunkAsyncTask(chunkDAO).execute(chunk);
+    LiveData<List<OreAlloc>> getAllAllocs(int chunkId) {
+        allocationsByChunkId = allocDAO.getOreAllocs(chunkId);
+        return allocationsByChunkId;
     }
+
+    LiveData<Chunk> getLastInsertedChunk() {
+        currentChunk = chunkDAO.getChunk((int) lastInsertedChunkId);
+        return currentChunk;
+    }
+
+    // PUBLIC API
+    // Chunk
+    public void insertChunk (Chunk chunk) { new insertChunkAsyncTask(chunkDAO).execute(chunk); }
+    public void updateChunk (Chunk chunk) { new updateChunkAsyncTask(chunkDAO).execute(chunk); }
+    public void deleteAllChunks () { new deleteAllChunkAsyncTask(chunkDAO).execute(); }
+
+    // OreAlloc
+    public void insertOreAlloc (OreAlloc alloc) {
+        new insertOreAsyncTask(allocDAO).execute(alloc);
+    }
+    public void deleteAllOreAllocs() {
+        new deleteAllOresAsyncTask(allocDAO).execute();
+    }
+
+    // IMPLEMENTATIONS
+
+    
+    // Chunk 
 
     private static class insertChunkAsyncTask extends AsyncTask<Chunk, Void, Void> {
         private ChunkDAO asyncTaskDao;
@@ -44,15 +72,26 @@ public class AppRepository {
 
         @Override
         protected Void doInBackground(final Chunk... params) {
-            asyncTaskDao.insert(params[0]);
+            lastInsertedChunkId = asyncTaskDao.insert(params[0]);
+            return null;
+        }
+
+    }
+
+    private static class updateChunkAsyncTask extends AsyncTask<Chunk, Void, Void> {
+        private ChunkDAO asyncTaskDao;
+
+        updateChunkAsyncTask(ChunkDAO dao) {
+            asyncTaskDao = dao;
+        }
+
+        @Override
+        protected Void doInBackground(final Chunk... params) {
+            asyncTaskDao.update(params[0]);
             return null;
         }
     }
-
-    public void deleteAllChunks () {
-        new deleteAllChunkAsyncTask(chunkDAO).execute();
-    }
-
+    
     private static class deleteAllChunkAsyncTask extends AsyncTask<Void, Void, Void> {
         private ChunkDAO asyncTaskDao;
 
@@ -66,16 +105,8 @@ public class AppRepository {
             return null;
         }
     }
-
-
-    LiveData<List<OreAlloc>> getAllAllocs(int chunkId) {
-        allocationsByChunkId = allocDAO.getOreAllocs(chunkId);
-        return allocationsByChunkId;
-    }
-
-    public void insertOreAlloc (OreAlloc alloc) {
-        new insertOreAsyncTask(allocDAO).execute(alloc);
-    }
+    
+    // OreAlloc
 
     private static class insertOreAsyncTask extends AsyncTask<OreAlloc, Void, Void> {
         private OreAllocDAO asyncTaskDao;
@@ -91,10 +122,6 @@ public class AppRepository {
         }
     }
 
-    public void deleteAllOreAllocs() {
-        new deleteAllOresAsyncTask(allocDAO).execute();
-    }
-
     private static class deleteAllOresAsyncTask extends AsyncTask<Void, Void, Void> {
         private OreAllocDAO asyncTaskDao;
 
@@ -106,6 +133,4 @@ public class AppRepository {
             return null;
         }
     }
-
-
 }

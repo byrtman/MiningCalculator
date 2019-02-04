@@ -71,7 +71,7 @@ public abstract class AppDatabase extends RoomDatabase {
 
         @Override
         protected Void doInBackground(final Void... params) {
-//            dao.deleteAll();
+            dao.getAllChunks();
             return null;
         }
     }
@@ -86,7 +86,6 @@ public abstract class AppDatabase extends RoomDatabase {
 
         @Override
         protected Void doInBackground(final Void... params) {
-//            dao.deleteAllOreAllocs();
             return null;
         }
     }

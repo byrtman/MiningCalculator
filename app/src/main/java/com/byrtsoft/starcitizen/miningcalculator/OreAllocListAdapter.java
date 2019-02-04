@@ -3,7 +3,6 @@ package com.byrtsoft.starcitizen.miningcalculator;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,6 +26,7 @@ public class OreAllocListAdapter extends RecyclerView.Adapter<OreAllocListAdapte
         }
     }
 
+    private static String TAG = "BYRT";
     private final LayoutInflater inflater;
     private List<OreAlloc> allocs; // cached copy of allocs
     private double mChunkMass; // the chunk mass we are allocating
@@ -65,11 +65,6 @@ public class OreAllocListAdapter extends RecyclerView.Adapter<OreAllocListAdapte
 
     void setAllocs(List<OreAlloc> allocs) {
         this.allocs = allocs;
-        Log.d("BYRT", "number of oreAllocs = " + allocs.size());
-        for (OreAlloc o : allocs
-             ) {
-            Log.d("BYRT", o.toString());
-        }
         notifyDataSetChanged();
     }
 

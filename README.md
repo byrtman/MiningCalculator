@@ -14,4 +14,8 @@ A calculator app that helps Star Citizen miners determine the value of rocks bef
 1. Remove a set ore from the picker to prevent dupes.
 1. Hook up the reset runs menu button to clear the data for the app.
 1. Fix the ore allocation value amounts. They look wrong.
+1. Find Ore from the Ore db rather than newing a fake one.
+1. Allow editing of committed chunk
+1. Add a distinctive name for each chunk
+1. Add a mining area filter. Include as part of chunk name
 

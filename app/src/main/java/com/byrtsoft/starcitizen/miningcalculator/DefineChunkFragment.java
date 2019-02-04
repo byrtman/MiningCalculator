@@ -12,35 +12,40 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.NumberPicker;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.List;
 
 public class DefineChunkFragment extends Fragment {
+    private static String TAG = "BYRT";
 
     private OnFragmentInteractionListener mListener;
 
     private NumberPicker mMassPicker;
     private TextView mSelectedMass;
+    private TextView mTotalValueView;
     private Button mEditButton;
-    private boolean mEditMode = false;
 
-    private double mSelectedMassValue;
-    private double mAccumulatedValue;
-    private int mChunkId;
     private AppViewModel appViewModel;
+    private Chunk mChunk;
     private OreAllocListAdapter oreAllocListAdapter;
+
+    private double mSelectedMassAmount;
+    private boolean mListObserverSet = false;
+    private boolean mEditMode = false;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
+        mChunk = createChunk();
+        mListener.onChunkCreated(mChunk);
     }
 
     @Nullable
@@ -48,8 +53,10 @@ public class DefineChunkFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View result = inflater.inflate(R.layout.chunk_entry, container, false);
 
+        mListObserverSet = false;
         mSelectedMass = result.findViewById(R.id.textSetMassAmount);
         mSelectedMass.setVisibility(View.VISIBLE);
+        mTotalValueView = result.findViewById(R.id.resultsTotalValue);
 
         // Setup mass picker
         mMassPicker = result.findViewById(R.id.massPicker);
@@ -59,20 +66,25 @@ public class DefineChunkFragment extends Fragment {
         mMassPicker.setMaxValue(mMassPicker.getDisplayedValues().length-1);
         mMassPicker.setVisibility(View.INVISIBLE);
 
+        // Setup Add/Edit mass
         mEditButton = result.findViewById(R.id.buttonSetMass);
         mEditButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                // Toggle the edit mass and done button
                 if (mEditMode) {
                     mEditButton.setText(R.string.edit_mass);
                     mMassPicker.setVisibility(View.INVISIBLE);
                     String pickedMass = mMassPicker.getDisplayedValues()[mMassPicker.getValue()];
-                    mSelectedMassValue = Double.parseDouble(pickedMass);
-                    oreAllocListAdapter.setMassToAllocate(mSelectedMassValue);
+                    mSelectedMassAmount = Double.parseDouble(pickedMass);
+                    mChunk.setMass(mSelectedMassAmount);
+                    mListener.onMassSelected(mChunk);
+                    oreAllocListAdapter.setMassToAllocate(mSelectedMassAmount);
                     mSelectedMass.setText(pickedMass+" "+getString(R.string.mass_unit));
                     mSelectedMass.setVisibility(View.VISIBLE);
                 } else {
                     mEditButton.setText(R.string.commit);
+                    oreAllocListAdapter.resetMass();
                     mMassPicker.setVisibility(View.VISIBLE);
                     mSelectedMass.setVisibility(View.INVISIBLE);
                 }
@@ -80,12 +92,12 @@ public class DefineChunkFragment extends Fragment {
             }
         });
 
+        // Setup floating add ore allocation button
         FloatingActionButton addNewOreButton = result.findViewById(R.id.addOreFAButton);
         addNewOreButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DefineOreFragment oreFragment = DefineOreFragment.newInstance(mChunkId++, null);
-//                oreFragment.setArguments(getActivity().getIntent().getExtras());
+                DefineOreFragment oreFragment = DefineOreFragment.newInstance(mChunk.getId(), null);
                 FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction().add(android.R.id.content, oreFragment);
                 transaction.addToBackStack(null);
                 transaction.commit();
@@ -93,35 +105,55 @@ public class DefineChunkFragment extends Fragment {
             }
         });
 
+        // Setup the commit chunk button
         Button commitButton = result.findViewById(R.id.buttonChunkCommit);
         if (commitButton != null) {
             commitButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if (mSelectedMassValue > 0) {
-                        mListener.onChunkCommitted(createChunk());
+                    if (mSelectedMassAmount > 0) {
+                        mListener.onChunkCommitted(mChunk);
                     }
                     oreAllocListAdapter.resetMass();
+                    mChunk = null;
                     getFragmentManager().popBackStack();
                 }
             });
         }
 
+        // Setup the recyclerView that displays the ore allocations for the current chunk
         RecyclerView recyclerView = result.findViewById(R.id.alloc_recyclerview);
         recyclerView.addItemDecoration(new DividerItemDecoration(recyclerView.getContext(), DividerItemDecoration.HORIZONTAL));
         oreAllocListAdapter = new OreAllocListAdapter(getContext());
         recyclerView.setAdapter(oreAllocListAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-
         appViewModel = ViewModelProviders.of(getActivity()).get(AppViewModel.class);
-        appViewModel.getAllAllocs(mChunkId).observe(this, new Observer<List<OreAlloc>>() {
+
+        appViewModel.getLastChunk().observe(this, new Observer<Chunk>() {
             @Override
-            public void onChanged(@Nullable List<OreAlloc> allocs) {
-                oreAllocListAdapter.setAllocs(allocs);
+            public void onChanged(@Nullable Chunk chunk) {
+                Log.d(TAG, "DefineChunkFragment::getLastChunk("+chunk+")");
+                mChunk = chunk;
+                mListener.onChunkInserted(chunk);
+                setupAllocListObserver();
             }
         });
 
         return result;
+    }
+
+    private void setupAllocListObserver() {
+        if (!mListObserverSet) {
+            appViewModel.getAllAllocs(mChunk.getId()).observe(this, new Observer<List<OreAlloc>>() {
+                @Override
+                public void onChanged(@Nullable List<OreAlloc> allocs) {
+                    oreAllocListAdapter.setAllocs(allocs);
+                    String text = new StringBuilder().append(getString(R.string.value_unit)).append(" ").append(String.valueOf(appViewModel.getAllocsValue(mChunk.getId()))).toString();
+                    mTotalValueView.setText(text);
+                }
+            });
+            mListObserverSet = true;
+        }
     }
 
     @Override
@@ -142,9 +174,7 @@ public class DefineChunkFragment extends Fragment {
     }
 
     private Chunk createChunk() {
-        Chunk chunk = new Chunk(mSelectedMassValue);
-        mChunkId = chunk.getId();
-        Toast.makeText(getContext(), "createChunk("+mChunkId+")", Toast.LENGTH_SHORT).show();
+        Chunk chunk = new Chunk(mSelectedMassAmount);
         return chunk;
     }
 
@@ -154,6 +184,9 @@ public class DefineChunkFragment extends Fragment {
     }
 
     public interface OnFragmentInteractionListener {
+        void onChunkCreated(Chunk chunk);
+        void onChunkInserted(Chunk chunk);
+        void onMassSelected(Chunk chunk);
         void onChunkCommitted(Chunk chunk);
     }
 }
