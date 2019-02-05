@@ -6,8 +6,6 @@
     android:background="@color/colorPrimaryDark"
     tools:context=".DefineOreFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-
     <NumberPicker
         android:id="@+id/orePicker"
         android:layout_width="wrap_content"

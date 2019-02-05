@@ -122,7 +122,6 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void onMassSelected(Chunk chunk) {
-        // TODO: update the chunk in the db
         appViewModel.updateChunk(chunk);
         Log.d(TAG," Chunk with id = " + chunk + " updated");
     }
