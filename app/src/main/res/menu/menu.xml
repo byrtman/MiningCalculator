@@ -2,7 +2,10 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 <item
-    android:id="@+id/actions_settings"
+    android:id="@+id/actions_reset_all"
     android:title="@string/menu_bar_item_1_name"
+    app:showAsAction="never"></item>
+<item android:id="@+id/actions_reset_chunk"
+    android:title="Reset Allocation"
     app:showAsAction="never"></item>
 </menu>

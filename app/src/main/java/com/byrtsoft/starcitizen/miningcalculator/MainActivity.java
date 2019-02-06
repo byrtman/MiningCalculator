@@ -81,7 +81,13 @@ public class MainActivity extends AppCompatActivity
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         Log.d(TAG, "Item " + item + " selected");
-        appViewModel.resetAllData();
+        switch (item.getItemId()) {
+            case R.id.actions_reset_all:
+                appViewModel.resetAllData();
+            case R.id.actions_reset_chunk:
+
+        }
+
         return super.onOptionsItemSelected(item);
     }
 
