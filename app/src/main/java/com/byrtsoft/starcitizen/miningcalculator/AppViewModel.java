@@ -69,4 +69,8 @@ public class AppViewModel extends AndroidViewModel {
         repository.deleteAllOreAllocs();
         repository.deleteAllChunks();
     }
+
+    public void resetChunkAllocation() {
+        repository.deleteAllOreAllocs();
+    }
 }
