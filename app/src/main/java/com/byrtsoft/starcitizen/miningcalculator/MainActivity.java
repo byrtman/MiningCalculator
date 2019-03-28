@@ -90,8 +90,10 @@ public class MainActivity extends AppCompatActivity
                 appViewModel.resetAllData();
             case R.id.actions_reset_chunk:
                 appViewModel.resetChunkAllocation();
-                mCurrentChunk.setValue(0.0);
-                appViewModel.updateChunk(mCurrentChunk);
+                if (mCurrentChunk != null) {
+                    mCurrentChunk.setValue(0.0);
+                    appViewModel.updateChunk(mCurrentChunk);
+                }
         }
 
         return super.onOptionsItemSelected(item);

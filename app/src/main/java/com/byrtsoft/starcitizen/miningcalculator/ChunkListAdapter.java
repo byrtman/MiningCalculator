@@ -42,7 +42,8 @@ public class ChunkListAdapter extends RecyclerView.Adapter<ChunkListAdapter.Chun
     public void onBindViewHolder(@NonNull ChunkViewHolder holder, int position) {
         if (chunks != null) {
             Chunk current = chunks.get(position);
-            holder.chunkMassItemView.setText(String.format(Locale.US, "%.2f %s", current.getMass(), "Kg"));
+//            holder.chunkMassItemView.setText(String.format(Locale.US, "%.2f %s", current.getMass(), "Kg"));
+            holder.chunkMassItemView.setText(String.format(Locale.US, "%s", current.getName()));
             holder.chunkValueItemView.setText(String.format(Locale.US, "%s %.0f", "$", current.getValue()));
         } else {
             holder.chunkMassItemView.setText(R.string.nothing);

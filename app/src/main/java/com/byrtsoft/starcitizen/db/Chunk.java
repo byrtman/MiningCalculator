@@ -12,6 +12,9 @@ public class Chunk {
     @ColumnInfo(name = "rowId")
     private int id;
 
+    @ColumnInfo(name = "name")
+    private String mName;
+
     @ColumnInfo(name = "mass")
     private double mMass;
 
@@ -28,6 +31,14 @@ public class Chunk {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public String getName() {
+        return mName;
+    }
+
+    public void setName(String name) {
+        this.mName = name;
     }
 
     public double getMass() {
@@ -50,6 +61,7 @@ public class Chunk {
         StringBuilder result = new StringBuilder();
         result.append("{ Chunk:");
         result.append(" ").append("id: ").append(getId()).append(" ");
+        result.append("|").append("name: ").append(getName()).append(" ");
         result.append("| ").append("mass: ").append(getMass()).append(" ");
         result.append("| ").append("value: ").append(getValue()).append(" }");
         return result.toString();

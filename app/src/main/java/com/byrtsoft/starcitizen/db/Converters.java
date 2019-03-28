@@ -10,13 +10,13 @@ import java.lang.reflect.Type;
 
 class Converters {
     @TypeConverter
-     static Ore fromString(String value) {
+     public static Ore fromString(String value) {
         Type oreType = new TypeToken<Ore>() {}.getType();
         return new Gson().fromJson(value, oreType);
     }
 
     @TypeConverter
-     static String fromOre(Ore ore) {
+     public static String fromOre(Ore ore) {
         Gson gson = new Gson();
         return gson.toJson(ore);
     }

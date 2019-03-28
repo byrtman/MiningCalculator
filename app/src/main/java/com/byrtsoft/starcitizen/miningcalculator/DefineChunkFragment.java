@@ -23,6 +23,10 @@ import android.widget.TextView;
 import com.byrtsoft.starcitizen.db.Chunk;
 import com.byrtsoft.starcitizen.db.OreAlloc;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import java.util.List;
 
 public class DefineChunkFragment extends Fragment {
@@ -178,6 +182,8 @@ public class DefineChunkFragment extends Fragment {
 
     private Chunk createChunk() {
         Chunk chunk = new Chunk(mSelectedMassAmount);
+        String name = LocalDateTime.now().format(DateTimeFormatter.ISO_LOCAL_DATE_TIME);
+        chunk.setName(name); // Use current DateTime
         return chunk;
     }
 
