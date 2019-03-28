@@ -20,6 +20,9 @@ import android.widget.Button;
 import android.widget.NumberPicker;
 import android.widget.TextView;
 
+import com.byrtsoft.starcitizen.db.Chunk;
+import com.byrtsoft.starcitizen.db.OreAlloc;
+
 import java.util.List;
 
 public class DefineChunkFragment extends Fragment {

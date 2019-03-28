@@ -6,12 +6,15 @@ import android.support.test.InstrumentationRegistry;
 import android.support.test.runner.AndroidJUnit4;
 import android.util.Log;
 
+import com.byrtsoft.starcitizen.db.AppDatabase;
+import com.byrtsoft.starcitizen.db.Ore;
+import com.byrtsoft.starcitizen.db.OreDAO;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import java.io.IOException;
 import java.util.List;
 
 /**

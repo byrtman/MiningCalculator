@@ -4,6 +4,14 @@ import android.app.Application;
 import android.arch.lifecycle.LiveData;
 import android.os.AsyncTask;
 
+import com.byrtsoft.starcitizen.db.AppDatabase;
+import com.byrtsoft.starcitizen.db.Chunk;
+import com.byrtsoft.starcitizen.db.ChunkDAO;
+import com.byrtsoft.starcitizen.db.Ore;
+import com.byrtsoft.starcitizen.db.OreAlloc;
+import com.byrtsoft.starcitizen.db.OreAllocDAO;
+import com.byrtsoft.starcitizen.db.OreDAO;
+
 import java.util.List;
 
 public class AppRepository {

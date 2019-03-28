@@ -1,9 +1,7 @@
-package com.byrtsoft.starcitizen.miningcalculator;
+package com.byrtsoft.starcitizen.db;
 
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
-import android.content.res.Resources;
-import android.content.res.XmlResourceParser;
 import android.support.annotation.NonNull;
 
 @Entity(tableName = "ore_table")

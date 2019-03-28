@@ -4,6 +4,9 @@ import android.app.Application;
 import android.arch.lifecycle.AndroidViewModel;
 import android.arch.lifecycle.LiveData;
 
+import com.byrtsoft.starcitizen.db.Chunk;
+import com.byrtsoft.starcitizen.db.OreAlloc;
+
 import java.util.List;
 
 public class AppViewModel extends AndroidViewModel {

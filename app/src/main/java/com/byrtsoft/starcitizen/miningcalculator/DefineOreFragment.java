@@ -10,6 +10,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.NumberPicker;
 
+import com.byrtsoft.starcitizen.db.Ore;
+
 
 /**
  * A simple {@link Fragment} subclass.

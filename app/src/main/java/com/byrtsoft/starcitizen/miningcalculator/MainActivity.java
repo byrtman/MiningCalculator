@@ -18,6 +18,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
+import com.byrtsoft.starcitizen.db.Chunk;
+import com.byrtsoft.starcitizen.db.Ore;
+import com.byrtsoft.starcitizen.db.OreAlloc;
+
 import java.util.List;
 
 

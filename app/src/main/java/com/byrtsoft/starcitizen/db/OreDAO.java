@@ -1,4 +1,4 @@
-package com.byrtsoft.starcitizen.miningcalculator;
+package com.byrtsoft.starcitizen.db;
 
 import android.arch.lifecycle.LiveData;
 import android.arch.persistence.room.Dao;

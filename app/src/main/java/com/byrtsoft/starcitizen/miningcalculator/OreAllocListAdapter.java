@@ -8,6 +8,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.byrtsoft.starcitizen.db.OreAlloc;
+
 import java.util.List;
 import java.util.Locale;
 
