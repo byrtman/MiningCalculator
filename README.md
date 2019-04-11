@@ -22,3 +22,23 @@ A calculator app that helps Star Citizen miners determine the value of rocks bef
 1. ~~Fix the ore allocation value amounts. They look wrong.~~
 1. ~~Find Ore from the Ore db rather than newing a fake one.~~
 
+**USER FLOW:**
+1. Pick PLANETOID from a list
+   * This filters ORES available
+   * Sets part of the RUN title
+1. Start a new RUN
+   * Assign PLANETOID + DATETIME as RUN id
+1. Add a new mineable ROCK
+   * Assign a number (coords?) for the ROCK id
+   * Enter the total MASS from scanning data
+   * Enter ALLOCATION for each ORE
+   * Calculate potential VALUE
+   * Select KEEP or DISCARD actions
+1. Add a new ROCK CHUNK
+   * Assign a letter for the CHUNK id
+   * Enter MASS
+   * Enter ALLOCATION for each ORE
+   * Calculate VALUE
+   * Select KEEP or DISCARD action
+     * KEEP accumulates the VALUE to the ROCK mined VALUE
+     
