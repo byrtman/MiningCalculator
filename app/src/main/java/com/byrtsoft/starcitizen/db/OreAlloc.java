@@ -23,7 +23,7 @@ public class OreAlloc {
     private int id;
 
     public OreAlloc(@NonNull Ore ore, @NonNull double mAllocation, @NonNull int mParentChunkId) {
-        this.ore= ore;
+        this.ore = ore;
         this.mAllocation = mAllocation;
         this.mParentChunkId = mParentChunkId;
     }
