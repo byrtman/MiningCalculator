@@ -7,30 +7,41 @@ import android.os.AsyncTask;
 import com.byrtsoft.starcitizen.db.AppDatabase;
 import com.byrtsoft.starcitizen.db.Chunk;
 import com.byrtsoft.starcitizen.db.ChunkDAO;
+import com.byrtsoft.starcitizen.db.MiningRun;
+import com.byrtsoft.starcitizen.db.MiningRunDAO;
 import com.byrtsoft.starcitizen.db.Ore;
 import com.byrtsoft.starcitizen.db.OreAlloc;
 import com.byrtsoft.starcitizen.db.OreAllocDAO;
 import com.byrtsoft.starcitizen.db.OreDAO;
+import com.byrtsoft.starcitizen.db.Planetoid;
+import com.byrtsoft.starcitizen.db.PlanetoidDAO;
 
 import java.util.List;
 
 public class AppRepository {
-    private static String TAG = "ORE_DATA";
+    private static String TAG = "REPOSITORY";
     private ChunkDAO chunkDAO;
     private OreDAO oreDAO;
     private OreAllocDAO allocDAO;
+    private MiningRunDAO runDAO;
+    private PlanetoidDAO planetoidDAO;
 
-    private LiveData<List<Ore>> allOresList; // List of all existing Ores in the game.
     private LiveData<List<Chunk>> allChunks;
+    private LiveData<List<Ore>> allOresList; // List of all existing Ores in the game.
     private LiveData<List<OreAlloc>> allocationsByChunkId;
+    private LiveData<List<MiningRun>> allRuns;
+    private LiveData<List<Planetoid>> allPlanetoids;
+
     private LiveData<Chunk> currentChunk;
     private static long lastInsertedChunkId;
 
     AppRepository(Application application) {
         AppDatabase db = AppDatabase.getDatabase(application);
-        oreDAO = db.getOreDAO();
         chunkDAO = db.getChunkDAO();
+        oreDAO = db.getOreDAO();
         allocDAO = db.getAllocDAO();
+        runDAO = db.getMiningRunDAO();
+        planetoidDAO = db.getPlanetoidDAO();
 
         allChunks = chunkDAO.getAllChunks();
         allOresList = oreDAO.getOres();

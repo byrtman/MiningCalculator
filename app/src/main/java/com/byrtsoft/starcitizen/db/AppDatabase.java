@@ -12,9 +12,11 @@ import android.support.annotation.NonNull;
 @Database(entities = {Ore.class, Chunk.class, OreAlloc.class}, version = 2, exportSchema = false)
 @TypeConverters({Converters.class})
 public abstract class AppDatabase extends RoomDatabase {
-    public abstract OreDAO getOreDAO();
     public abstract ChunkDAO getChunkDAO();
+    public abstract OreDAO getOreDAO();
     public abstract OreAllocDAO getAllocDAO();
+    public abstract MiningRunDAO getMiningRunDAO();
+    public abstract PlanetoidDAO getPlanetoidDAO();
 
     private static volatile AppDatabase INSTANCE;
 
@@ -38,8 +40,8 @@ public abstract class AppDatabase extends RoomDatabase {
             public void onOpen(@NonNull SupportSQLiteDatabase db) {
                 super.onOpen(db);
 
-                new PopulateOreDbAsync(INSTANCE).execute();
                 new PopulateChunkDbAsync(INSTANCE).execute();
+                new PopulateOreDbAsync(INSTANCE).execute();
                 new PopulateOreAllocDbAsync(INSTANCE).execute();
             }
         };
