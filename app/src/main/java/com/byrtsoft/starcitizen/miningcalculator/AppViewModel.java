@@ -24,6 +24,8 @@ public class AppViewModel extends AndroidViewModel {
         super(application);
         repository = new AppRepository(application);
         allChunks = repository.getAllChunks();
+        allRuns = repository.getAllRuns();
+        allPlanetoids = repository.getAllPlanetoids();
     }
 
     // Mining Run data

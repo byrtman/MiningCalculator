@@ -9,7 +9,13 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.support.annotation.NonNull;
 
-@Database(entities = {Ore.class, Chunk.class, OreAlloc.class}, version = 2, exportSchema = false)
+@Database(entities = {
+        Chunk.class,
+        Ore.class,
+        OreAlloc.class,
+        OreAvailability.class,
+        MiningRun.class,
+        Planetoid.class }, version = 2, exportSchema = false)
 @TypeConverters({Converters.class})
 public abstract class AppDatabase extends RoomDatabase {
     public abstract ChunkDAO getChunkDAO();
@@ -43,24 +49,13 @@ public abstract class AppDatabase extends RoomDatabase {
                 new PopulateChunkDbAsync(INSTANCE).execute();
                 new PopulateOreDbAsync(INSTANCE).execute();
                 new PopulateOreAllocDbAsync(INSTANCE).execute();
+                new PopulateMiningRunDbAsync(INSTANCE).execute();
+                new PopulatePlanetoidDbAsync(INSTANCE).execute();
             }
         };
 
-    private static class PopulateOreDbAsync extends AsyncTask<Void, Void, Void> {
-        private final OreDAO dao;
 
-        PopulateOreDbAsync(AppDatabase db) {
-            this.dao = db.getOreDAO();
-        }
-
-        @Override
-        protected Void doInBackground(final Void... params) {
-            dao.deleteAllOres();
-            dao.insert(Ore.ORES());
-            return null;
-        }
-
-    }
+    // ASYNC static methods for database initialization
 
     private static class PopulateChunkDbAsync extends AsyncTask<Void, Void, Void> {
         private final ChunkDAO dao;
@@ -76,12 +71,52 @@ public abstract class AppDatabase extends RoomDatabase {
         }
     }
 
+    private static class PopulateOreDbAsync extends AsyncTask<Void, Void, Void> {
+        private final OreDAO dao;
+
+        PopulateOreDbAsync(AppDatabase db) {
+            this.dao = db.getOreDAO();
+        }
+
+        @Override
+        protected Void doInBackground(final Void... params) {
+            dao.deleteAllOres();
+            dao.insert(Ore.ORES());
+            return null;
+        }
+    }
 
     private static class PopulateOreAllocDbAsync extends AsyncTask<Void, Void, Void> {
         private final OreAllocDAO dao;
 
         PopulateOreAllocDbAsync(AppDatabase db) {
             this.dao = db.getAllocDAO();
+        }
+
+        @Override
+        protected Void doInBackground(final Void... params) {
+            return null;
+        }
+    }
+
+    private static class PopulateMiningRunDbAsync extends AsyncTask<Void, Void, Void> {
+        private final MiningRunDAO dao;
+
+        PopulateMiningRunDbAsync(AppDatabase db) {
+            this.dao = db.getMiningRunDAO();
+        }
+
+        @Override
+        protected Void doInBackground(final Void... params) {
+            return null;
+        }
+    }
+
+    private static class PopulatePlanetoidDbAsync extends AsyncTask<Void, Void, Void> {
+        private final PlanetoidDAO dao;
+
+        PopulatePlanetoidDbAsync(AppDatabase db) {
+            this.dao = db.getPlanetoidDAO();
         }
 
         @Override

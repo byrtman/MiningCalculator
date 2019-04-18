@@ -23,7 +23,7 @@ public interface MiningRunDAO {
     @Query("SELECT * FROM run_table WHERE `rowId`=:runId")
     LiveData<MiningRun> getMiningRun(int runId);
 
-    @Query("SELECT * FROM chunk_table ORDER BY 'rowId' ASC")
+    @Query("SELECT * FROM run_table ORDER BY 'rowId' ASC")
     LiveData<List<MiningRun>> getAllMiningRuns();
 
 }

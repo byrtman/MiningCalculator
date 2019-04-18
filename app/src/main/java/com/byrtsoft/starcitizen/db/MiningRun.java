@@ -17,8 +17,8 @@ public class MiningRun {
     @ColumnInfo(name = "name")
     private String name;
 
-    public MiningRun(@NonNull String planetoidName) {
-        this.name = new StringBuilder().append(planetoidName).append("_").append(LocalDateTime.now()).toString();
+    public MiningRun(@NonNull String name) {
+        this.name = new StringBuilder().append(name).append("_").append(LocalDateTime.now()).toString();
     }
 
     public int getId() {

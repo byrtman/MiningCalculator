@@ -63,7 +63,12 @@ public class AppRepository {
         return currentChunk;
     }
 
-    // PUBLIC API
+    LiveData<List<MiningRun>> getAllRuns() { return allRuns; }
+    LiveData<List<Planetoid>> getAllPlanetoids() { return allPlanetoids; }
+
+
+    // PUBLIC API //
+
     // Chunk
     public void insertChunk (Chunk chunk) { new insertChunkAsyncTask(chunkDAO).execute(chunk); }
     public void updateChunk (Chunk chunk) { new updateChunkAsyncTask(chunkDAO).execute(chunk); }
@@ -77,7 +82,9 @@ public class AppRepository {
         new deleteAllOresAsyncTask(allocDAO).execute();
     }
 
-    // IMPLEMENTATIONS
+
+
+    // IMPLEMENTATIONS //
 
     
     // Chunk 
