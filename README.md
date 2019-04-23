@@ -23,11 +23,11 @@ A calculator app that helps Star Citizen miners determine the value of rocks bef
 1. ~~Find Ore from the Ore db rather than newing a fake one.~~
 
 **USER FLOW:**
+1. Start a new RUN
 1. Pick PLANETOID from a list
    * This filters ORES available
    * Sets part of the RUN title
-1. Start a new RUN
-   * Assign PLANETOID + DATETIME as RUN id
+     * Assign PLANETOID + DATETIME as RUN name
 1. Add a new mineable ROCK
    * Assign a number (coords?) for the ROCK id
    * Enter the total MASS from scanning data

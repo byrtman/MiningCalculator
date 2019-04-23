@@ -23,10 +23,8 @@ import android.widget.TextView;
 import com.byrtsoft.starcitizen.db.Chunk;
 import com.byrtsoft.starcitizen.db.OreAlloc;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Date;
 import java.util.List;
 
 public class DefineChunkFragment extends Fragment {
@@ -129,7 +127,7 @@ public class DefineChunkFragment extends Fragment {
         }
 
         // Setup the recyclerView that displays the ore allocations for the current chunk
-        RecyclerView recyclerView = result.findViewById(R.id.alloc_recyclerview);
+        RecyclerView recyclerView = result.findViewById(R.id.chunk_entry_recyclerview);
         recyclerView.addItemDecoration(new DividerItemDecoration(recyclerView.getContext(), DividerItemDecoration.HORIZONTAL));
         oreAllocListAdapter = new OreAllocListAdapter(getContext());
         recyclerView.setAdapter(oreAllocListAdapter);

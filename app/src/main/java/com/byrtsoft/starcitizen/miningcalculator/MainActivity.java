@@ -19,6 +19,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.byrtsoft.starcitizen.db.Chunk;
+import com.byrtsoft.starcitizen.db.MiningRun;
 import com.byrtsoft.starcitizen.db.Ore;
 import com.byrtsoft.starcitizen.db.OreAlloc;
 
@@ -54,22 +55,22 @@ public class MainActivity extends AppCompatActivity
         });
 
         // RecyclerView to display all of the committed chunks in the database
-        RecyclerView recyclerView = findViewById(R.id.chunk_recyclerview);
+        RecyclerView recyclerView = findViewById(R.id.main_recyclerview);
         recyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.HORIZONTAL));
-        final ChunkListAdapter chunkListAdapter = new ChunkListAdapter(this);
-        recyclerView.setAdapter(chunkListAdapter);
+        final MiningRunListAdapter listAdapter = new MiningRunListAdapter(this);
+        recyclerView.setAdapter(listAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         // Setting the observer for the chunks list when it is updated
         appViewModel = ViewModelProviders.of(this).get(AppViewModel.class);
-        appViewModel.getAllChunks().observe(this, new Observer<List<Chunk>>() {
+        appViewModel.getAllMiningRuns().observe(this, new Observer<List<MiningRun>>() {
             @Override
-            public void onChanged(@Nullable List<Chunk> chunks) {
-                chunkListAdapter.setChunks(chunks);
+            public void onChanged(@Nullable List<MiningRun> runs) {
+                listAdapter.setMiningRuns(runs);
 
                 // Set the total value of all chunks TextView
                 final TextView view = findViewById(R.id.resultsTotalValue);
-                String text = new StringBuilder().append(getString(R.string.value_unit)).append(" ").append(String.valueOf(appViewModel.getAllChunksValue())).toString();
+                String text = "TBD";//new StringBuilder().append(getString(R.string.value_unit)).append(" ").append(String.valueOf(appViewModel.getAllChunksValue())).toString();
                 view.setText(text);
             }
         });

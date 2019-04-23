@@ -45,6 +45,7 @@ public class AppRepository {
 
         allChunks = chunkDAO.getAllChunks();
         allOresList = oreDAO.getOres();
+        allRuns = runDAO.getAllMiningRuns();
 
     }
 

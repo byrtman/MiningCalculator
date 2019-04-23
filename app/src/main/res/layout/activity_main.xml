@@ -47,11 +47,11 @@
         </LinearLayout>
 
         <android.support.v7.widget.RecyclerView
-            android:id="@+id/chunk_recyclerview"
+            android:id="@+id/main_recyclerview"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/colorPrimaryDark"
-            tools:listitem="@layout/recyclerview_chunk_item">
+            tools:listitem="@layout/recyclerview_two_column">
 
         </android.support.v7.widget.RecyclerView>
 

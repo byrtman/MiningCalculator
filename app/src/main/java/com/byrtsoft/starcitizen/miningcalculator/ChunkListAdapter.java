@@ -21,8 +21,8 @@ public class ChunkListAdapter extends RecyclerView.Adapter<ChunkListAdapter.Chun
 
         private ChunkViewHolder (View itemView) {
             super(itemView);
-            chunkMassItemView = itemView.findViewById(R.id.massTextView);
-            chunkValueItemView = itemView.findViewById(R.id.valueTextView);
+            chunkMassItemView = itemView.findViewById(R.id.columnOneTextView);
+            chunkValueItemView = itemView.findViewById(R.id.columnThreeTextView);
         }
     }
 
@@ -34,7 +34,7 @@ public class ChunkListAdapter extends RecyclerView.Adapter<ChunkListAdapter.Chun
     @NonNull
     @Override
     public ChunkViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View itemView = inflater.inflate(R.layout.recyclerview_chunk_item, parent, false);
+        View itemView = inflater.inflate(R.layout.recyclerview_two_column, parent, false);
         return new ChunkViewHolder(itemView);
     }
 

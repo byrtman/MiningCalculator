@@ -88,11 +88,11 @@
         </android.support.constraint.ConstraintLayout>
 
         <android.support.v7.widget.RecyclerView
-            android:id="@+id/alloc_recyclerview"
+            android:id="@+id/chunk_entry_recyclerview"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/colorPrimaryDark"
-            tools:listitem="@layout/recyclerview_alloc_item" />
+            tools:listitem="@layout/recyclerview_three_column" />
 
         <FrameLayout
             android:layout_width="match_parent"

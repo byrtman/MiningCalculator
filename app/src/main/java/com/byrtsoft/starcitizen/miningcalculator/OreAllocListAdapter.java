@@ -22,9 +22,9 @@ public class OreAllocListAdapter extends RecyclerView.Adapter<OreAllocListAdapte
 
         private OreAllocViewHolder(View itemView) {
             super(itemView);
-            allocOreNameItemView = itemView.findViewById(R.id.oreNameTextView);
-            allocPercentItemView = itemView.findViewById(R.id.percentTextView);
-            allocValueItemView = itemView.findViewById(R.id.valueTextView);
+            allocOreNameItemView = itemView.findViewById(R.id.columnOneTextView);
+            allocPercentItemView = itemView.findViewById(R.id.columnThreeTextView);
+            allocValueItemView = itemView.findViewById(R.id.columnThreeTextView);
         }
     }
 
@@ -38,7 +38,7 @@ public class OreAllocListAdapter extends RecyclerView.Adapter<OreAllocListAdapte
     @NonNull
     @Override
     public OreAllocViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View itemView = inflater.inflate(R.layout.recyclerview_alloc_item, parent, false);
+        View itemView = inflater.inflate(R.layout.recyclerview_three_column, parent, false);
         return new OreAllocViewHolder(itemView);
     }
 
