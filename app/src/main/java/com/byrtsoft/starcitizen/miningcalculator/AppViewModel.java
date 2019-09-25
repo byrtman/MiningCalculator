@@ -5,9 +5,9 @@ import android.arch.lifecycle.AndroidViewModel;
 import android.arch.lifecycle.LiveData;
 
 import com.byrtsoft.starcitizen.db.Chunk;
+import com.byrtsoft.starcitizen.db.MiningLocation;
 import com.byrtsoft.starcitizen.db.MiningRun;
 import com.byrtsoft.starcitizen.db.OreAlloc;
-import com.byrtsoft.starcitizen.db.Planetoid;
 
 import java.util.List;
 
@@ -16,7 +16,7 @@ public class AppViewModel extends AndroidViewModel {
 
     private LiveData<Chunk> currentChunk;
     private LiveData<List<MiningRun>> allRuns;
-    private LiveData<List<Planetoid>> allPlanetoids;
+    private LiveData<List<MiningLocation>> allMiningLocations;
     private LiveData<List<Chunk>> allChunks;
     private LiveData<List<OreAlloc>> currentAllocs;
 
@@ -25,7 +25,7 @@ public class AppViewModel extends AndroidViewModel {
         repository = new AppRepository(application);
         allChunks = repository.getAllChunks();
         allRuns = repository.getAllRuns();
-        allPlanetoids = repository.getAllPlanetoids();
+        allMiningLocations = repository.getAllMiningLocations();
     }
 
     // Mining Run data
@@ -33,9 +33,9 @@ public class AppViewModel extends AndroidViewModel {
     LiveData<List<MiningRun>> getAllMiningRuns() { return allRuns;}
 
 
-    // Planetoid data
+    // MiningLocation data
 
-    LiveData<List<Planetoid>> getAllPlanetoids() { return allPlanetoids;}
+    LiveData<List<MiningLocation>> getAllMiningLocations() { return allMiningLocations;}
 
 
 

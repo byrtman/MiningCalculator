@@ -15,14 +15,14 @@ import android.support.annotation.NonNull;
         OreAlloc.class,
         OreAvailability.class,
         MiningRun.class,
-        Planetoid.class }, version = 2, exportSchema = false)
+        MiningLocation.class }, version = 3, exportSchema = false)
 @TypeConverters({Converters.class})
 public abstract class AppDatabase extends RoomDatabase {
     public abstract ChunkDAO getChunkDAO();
     public abstract OreDAO getOreDAO();
     public abstract OreAllocDAO getAllocDAO();
     public abstract MiningRunDAO getMiningRunDAO();
-    public abstract PlanetoidDAO getPlanetoidDAO();
+    public abstract MiningLocationDAO getMiningLocationDAO();
 
     private static volatile AppDatabase INSTANCE;
 
@@ -50,7 +50,7 @@ public abstract class AppDatabase extends RoomDatabase {
                 new PopulateOreDbAsync(INSTANCE).execute();
                 new PopulateOreAllocDbAsync(INSTANCE).execute();
                 new PopulateMiningRunDbAsync(INSTANCE).execute();
-                new PopulatePlanetoidDbAsync(INSTANCE).execute();
+                new PopulateMiningLocationsDbAsync(INSTANCE).execute();
             }
         };
 
@@ -112,15 +112,17 @@ public abstract class AppDatabase extends RoomDatabase {
         }
     }
 
-    private static class PopulatePlanetoidDbAsync extends AsyncTask<Void, Void, Void> {
-        private final PlanetoidDAO dao;
+    private static class PopulateMiningLocationsDbAsync extends AsyncTask<Void, Void, Void> {
+        private final MiningLocationDAO dao;
 
-        PopulatePlanetoidDbAsync(AppDatabase db) {
-            this.dao = db.getPlanetoidDAO();
+        PopulateMiningLocationsDbAsync(AppDatabase db) {
+            this.dao = db.getMiningLocationDAO();
         }
 
         @Override
         protected Void doInBackground(final Void... params) {
+            dao.deleteAll();
+            dao.insert(MiningLocation.LOCATIONS());
             return null;
         }
     }

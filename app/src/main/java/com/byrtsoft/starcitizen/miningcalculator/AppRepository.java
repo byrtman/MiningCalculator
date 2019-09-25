@@ -13,8 +13,8 @@ import com.byrtsoft.starcitizen.db.Ore;
 import com.byrtsoft.starcitizen.db.OreAlloc;
 import com.byrtsoft.starcitizen.db.OreAllocDAO;
 import com.byrtsoft.starcitizen.db.OreDAO;
-import com.byrtsoft.starcitizen.db.Planetoid;
-import com.byrtsoft.starcitizen.db.PlanetoidDAO;
+import com.byrtsoft.starcitizen.db.MiningLocation;
+import com.byrtsoft.starcitizen.db.MiningLocationDAO;
 
 import java.util.List;
 
@@ -24,13 +24,13 @@ public class AppRepository {
     private OreDAO oreDAO;
     private OreAllocDAO allocDAO;
     private MiningRunDAO runDAO;
-    private PlanetoidDAO planetoidDAO;
+    private MiningLocationDAO miningLocationDAO;
 
     private LiveData<List<Chunk>> allChunks;
     private LiveData<List<Ore>> allOresList; // List of all existing Ores in the game.
     private LiveData<List<OreAlloc>> allocationsByChunkId;
     private LiveData<List<MiningRun>> allRuns;
-    private LiveData<List<Planetoid>> allPlanetoids;
+    private LiveData<List<MiningLocation>> allMiningLocations;
 
     private LiveData<Chunk> currentChunk;
     private static long lastInsertedChunkId;
@@ -41,7 +41,7 @@ public class AppRepository {
         oreDAO = db.getOreDAO();
         allocDAO = db.getAllocDAO();
         runDAO = db.getMiningRunDAO();
-        planetoidDAO = db.getPlanetoidDAO();
+        miningLocationDAO = db.getMiningLocationDAO();
 
         allChunks = chunkDAO.getAllChunks();
         allOresList = oreDAO.getOres();
@@ -65,7 +65,7 @@ public class AppRepository {
     }
 
     LiveData<List<MiningRun>> getAllRuns() { return allRuns; }
-    LiveData<List<Planetoid>> getAllPlanetoids() { return allPlanetoids; }
+    LiveData<List<MiningLocation>> getAllMiningLocations() { return allMiningLocations; }
 
 
     // PUBLIC API //

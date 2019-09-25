@@ -47,7 +47,7 @@ public class OreAllocListAdapter extends RecyclerView.Adapter<OreAllocListAdapte
         if (allocs != null) {
             OreAlloc alloc = allocs.get(position);
             holder.allocOreNameItemView.setText(String.format(Locale.US, "%s", alloc.getOre().getName()));
-            holder.allocPercentItemView.setText(String.format(Locale.US, "%.0f%s",alloc.getAllocation(),inflater.getContext().getString(R.string.alloc_unit)));
+            holder.allocPercentItemView.setText(String.format(Locale.US, "%.0f%s", alloc.getAllocation(), inflater.getContext().getString(R.string.alloc_unit)));
             holder.allocValueItemView.setText(String.format(Locale.US, "%s%.0f", inflater.getContext().getString(R.string.value_unit), alloc.calculateValue(mChunkMass)));
         } else {
             holder.allocOreNameItemView.setText(R.string.nothing);

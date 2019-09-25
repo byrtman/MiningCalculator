@@ -8,14 +8,6 @@
     android:orientation="vertical"
     tools:context=".DefineChunkFragment">
 
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/addOreFAButton"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:layout_margin="16dp"
-        android:src="@drawable/ic_add_black_56dp" />
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -92,7 +84,17 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/colorPrimaryDark"
-            tools:listitem="@layout/recyclerview_three_column" />
+            tools:listitem="@layout/recyclerview_three_column" >
+
+        </android.support.v7.widget.RecyclerView>
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/addOreFAButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            android:layout_margin="16dp"
+            android:src="@drawable/ic_add_black_56dp" />
 
         <FrameLayout
             android:layout_width="match_parent"
@@ -105,11 +107,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/commit" />
-
         </FrameLayout>
 
     </LinearLayout>
-
 
 
 </android.support.design.widget.CoordinatorLayout>
