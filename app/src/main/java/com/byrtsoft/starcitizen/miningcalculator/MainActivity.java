@@ -34,6 +34,7 @@ public class MainActivity extends AppCompatActivity
     private Chunk mCurrentChunk;
 
     private DefineChunkFragment mChunkFragment;
+    private PickLocationFragment mFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,9 +47,15 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onClick(View v) {
                 // Start the fragment, not the activity
-                mChunkFragment = new DefineChunkFragment();
-                mChunkFragment.setArguments(getIntent().getExtras());
-                FragmentTransaction transaction = getSupportFragmentManager().beginTransaction().add(android.R.id.content, mChunkFragment);
+
+//                mChunkFragment = new DefineChunkFragment();
+//                mChunkFragment.setArguments(getIntent().getExtras());
+//                FragmentTransaction transaction = getSupportFragmentManager().beginTransaction().add(android.R.id.content, mChunkFragment);
+
+                mFragment = PickLocationFragment.newInstance();
+                mFragment.setArguments(getIntent().getExtras());
+                FragmentTransaction transaction = getSupportFragmentManager().beginTransaction().add(android.R.id.content, mFragment);
+
                 transaction.addToBackStack(null);
                 transaction.commit();
             }

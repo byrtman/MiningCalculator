@@ -3,4 +3,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".PickLocationFragment"/>
+    tools:context=".PickLocationFragment">
+
+    <!--<android.support.v7.widget.RecyclerView-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent" />-->
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="270dp"
+        android:layout_height="142dp"
+        android:background="#F44336"
+        android:text="Boo!"
+        android:textSize="30sp" />
+</android.support.design.widget.CoordinatorLayout>
