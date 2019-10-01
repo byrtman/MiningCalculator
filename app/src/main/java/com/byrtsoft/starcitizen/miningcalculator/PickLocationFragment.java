@@ -15,10 +15,15 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.byrtsoft.starcitizen.db.Chunk;
+import com.byrtsoft.starcitizen.db.MiningLocation;
+
+import java.util.List;
 
 public class PickLocationFragment extends Fragment {
 
+    private static String TAG = "BYRT";
     private AppViewModel appViewModel;
+    private LocationListAdapter locationListAdapter;
 
     public static PickLocationFragment newInstance() {
         return new PickLocationFragment();
@@ -31,13 +36,21 @@ public class PickLocationFragment extends Fragment {
         View result = inflater.inflate(R.layout.pick_location_fragment, container, false);
 
         // Setup the recyclerView that displays the ore allocations for the current chunk
-//        RecyclerView recyclerView = result.findViewById(R.id.chunk_entry_recyclerview);
-//        recyclerView.addItemDecoration(new DividerItemDecoration(recyclerView.getContext(), DividerItemDecoration.HORIZONTAL));
-//        oreAllocListAdapter = new OreAllocListAdapter(getContext());
-//        recyclerView.setAdapter(oreAllocListAdapter);
-//        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-//        appViewModel = ViewModelProviders.of(getActivity()).get(AppViewModel.class);
-//
+        RecyclerView recyclerView = result.findViewById(R.id.location_recyclerview);
+        recyclerView.addItemDecoration(new DividerItemDecoration(recyclerView.getContext(), DividerItemDecoration.HORIZONTAL));
+        locationListAdapter = new LocationListAdapter(getContext());
+        recyclerView.setAdapter(locationListAdapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        appViewModel = ViewModelProviders.of(getActivity()).get(AppViewModel.class);
+
+        appViewModel.getAllMiningLocations().observe(this, new Observer<List<MiningLocation>>() {
+            @Override
+            public void onChanged(@Nullable List<MiningLocation> miningLocations) {
+                Log.d(TAG, "PickLocation: getting list of locations");
+                locationListAdapter.setLocatons(miningLocations);
+            }
+        });
+
 //        appViewModel.getLastChunk().observe(this, new Observer<Chunk>() {
 //            @Override
 //            public void onChanged(@Nullable Chunk chunk) {

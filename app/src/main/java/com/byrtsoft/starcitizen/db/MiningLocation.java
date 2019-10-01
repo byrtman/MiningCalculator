@@ -45,26 +45,26 @@ public class MiningLocation {
 
     public static MiningLocation[] LOCATIONS() {
         return new MiningLocation[] {
-                new MiningLocation("Daymar"),
-                new MiningLocation("Yela"),
-                new MiningLocation("Yela Ring"),
-                new MiningLocation("Cellin"),
-                new MiningLocation("Lyria"),
-                new MiningLocation("Wala"),
-                new MiningLocation("Magda"),
-                new MiningLocation("Ita"),
-                new MiningLocation("Arial"),
                 new MiningLocation("Aberdeen"),
+                new MiningLocation("Arial"),
+                new MiningLocation("Cellin"),
                 new MiningLocation("CRU-L1"),
                 new MiningLocation("CRU-L2"),
                 new MiningLocation("CRU-L3"),
                 new MiningLocation("CRU-L4"),
                 new MiningLocation("CRU-L5"),
+                new MiningLocation("Daymar"),
+                new MiningLocation("Delamar asteroid field"),
                 new MiningLocation("HUR-L1"),
                 new MiningLocation("HUR-L2"),
                 new MiningLocation("HUR-L3"),
                 new MiningLocation("HUR-L4"),
-                new MiningLocation("Delamar asteroid field"),
+                new MiningLocation("Ita"),
+                new MiningLocation("Lyria"),
+                new MiningLocation("Magda"),
+                new MiningLocation("Wala"),
+                new MiningLocation("Yela"),
+                new MiningLocation("Yela Ring"),
         };
 
     }
