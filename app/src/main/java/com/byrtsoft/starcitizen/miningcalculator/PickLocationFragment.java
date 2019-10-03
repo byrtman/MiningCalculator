@@ -14,7 +14,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.byrtsoft.starcitizen.db.Chunk;
 import com.byrtsoft.starcitizen.db.MiningLocation;
 
 import java.util.List;
@@ -38,7 +37,7 @@ public class PickLocationFragment extends Fragment {
         // Setup the recyclerView that displays the ore allocations for the current chunk
         RecyclerView recyclerView = result.findViewById(R.id.location_recyclerview);
         recyclerView.addItemDecoration(new DividerItemDecoration(recyclerView.getContext(), DividerItemDecoration.HORIZONTAL));
-        locationListAdapter = new LocationListAdapter(getContext());
+        locationListAdapter = new LocationListAdapter(getContext(), this);
         recyclerView.setAdapter(locationListAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         appViewModel = ViewModelProviders.of(getActivity()).get(AppViewModel.class);
@@ -47,19 +46,9 @@ public class PickLocationFragment extends Fragment {
             @Override
             public void onChanged(@Nullable List<MiningLocation> miningLocations) {
                 Log.d(TAG, "PickLocation: getting list of locations");
-                locationListAdapter.setLocatons(miningLocations);
+                locationListAdapter.setLocations(miningLocations);
             }
         });
-
-//        appViewModel.getLastChunk().observe(this, new Observer<Chunk>() {
-//            @Override
-//            public void onChanged(@Nullable Chunk chunk) {
-//                Log.d(TAG, "DefineChunkFragment::getLastChunk("+chunk+")");
-//                mChunk = chunk;
-//                mListener.onChunkInserted(chunk);
-//                setupAllocListObserver();
-//            }
-//        });
 
         return result;
     }

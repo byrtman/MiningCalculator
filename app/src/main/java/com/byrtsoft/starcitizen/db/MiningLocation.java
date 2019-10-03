@@ -39,7 +39,7 @@ public class MiningLocation {
         StringBuilder result = new StringBuilder();
         result.append("{ MiningLocation:");
         result.append(" ").append("id: ").append(getId()).append(" ");
-        result.append("|").append("name: ").append(getName()).append(" ");
+        result.append("| ").append("name: ").append(getName()).append(" ");
         return result.toString();
     }
 
