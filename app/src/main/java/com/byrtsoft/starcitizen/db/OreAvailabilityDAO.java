@@ -12,7 +12,7 @@ import java.util.List;
 public interface OreAvailabilityDAO {
 
     @Insert
-    long insert(OreAvailability availability);
+    void insert(OreAvailability... avails);
 
     @Update
     void update(OreAvailability... avails);
@@ -20,8 +20,8 @@ public interface OreAvailabilityDAO {
     @Query("DELETE FROM ore_availability_table")
     void deleteAll();
 
-    @Query("SELECT * FROM ore_availability_table WHERE 'planetoid_id'=:planetoidId ORDER BY 'ore_id'")
-    LiveData<List<OreAvailability>> getOres(int planetoidId);
+    @Query("SELECT * FROM ore_availability_table WHERE 'location_id'=:miningLocation ORDER BY 'ore_id'")
+    LiveData<List<OreAvailability>> getAvailableOres(int miningLocation);
 
 //    @Query("SELECT * FROM ore_availability_table ORDER BY 'rowId' ASC")
 //    LiveData<List<OreAvailability>> getAllOreAvailabilitys();

@@ -7,7 +7,9 @@ import android.arch.lifecycle.LiveData;
 import com.byrtsoft.starcitizen.db.Chunk;
 import com.byrtsoft.starcitizen.db.MiningLocation;
 import com.byrtsoft.starcitizen.db.MiningRun;
+import com.byrtsoft.starcitizen.db.Ore;
 import com.byrtsoft.starcitizen.db.OreAlloc;
+import com.byrtsoft.starcitizen.db.OreAvailability;
 
 import java.util.List;
 
@@ -36,6 +38,10 @@ public class AppViewModel extends AndroidViewModel {
     // MiningLocation data
 
     LiveData<List<MiningLocation>> getAllMiningLocations() { return allMiningLocations;}
+
+    LiveData<List<OreAvailability>> getLocationOres(MiningLocation location) {
+        return repository.getLocationOres(location);
+    }
 
 
 

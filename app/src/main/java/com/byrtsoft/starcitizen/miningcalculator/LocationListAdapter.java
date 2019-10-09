@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.byrtsoft.starcitizen.db.MiningLocation;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Locale;
 
@@ -19,10 +20,10 @@ class LocationListAdapter extends RecyclerView.Adapter<LocationListAdapter.Locat
 
     private final LayoutInflater inflater;
     private List<MiningLocation> places; // cached copy of runs
-    private Fragment fragment;
+    private PickLocationFragment fragment;
 
     public LocationListAdapter(Context context, Fragment fragment) {
-        this.fragment = fragment;
+        this.fragment = (PickLocationFragment) fragment;
         inflater = LayoutInflater.from(context);
     }
 
@@ -58,11 +59,6 @@ class LocationListAdapter extends RecyclerView.Adapter<LocationListAdapter.Locat
         }
     }
 
-    public void notifyItemClicked() {
-        fragment.getFragmentManager().popBackStack();
-    }
-
-
     public class LocationViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private final TextView runNameItemView;
         private final TextView runValueItemView;
@@ -80,9 +76,8 @@ class LocationListAdapter extends RecyclerView.Adapter<LocationListAdapter.Locat
         public void onClick(View v) {
             int position = getLayoutPosition();
             MiningLocation elem = places.get(position);
-            Log.d("BYRT", "Clicked! " + elem);
-
-            listAdapter.notifyItemClicked();
+            Log.d("BYRT", "Create new run! => " + elem + " : " + LocalDateTime.now());
+            fragment.onItemSelected(elem);
         }
 
 

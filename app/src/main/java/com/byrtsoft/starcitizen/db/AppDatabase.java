@@ -15,12 +15,13 @@ import android.support.annotation.NonNull;
         OreAlloc.class,
         OreAvailability.class,
         MiningRun.class,
-        MiningLocation.class }, version = 3, exportSchema = false)
+        MiningLocation.class }, version = 4, exportSchema = false)
 @TypeConverters({Converters.class})
 public abstract class AppDatabase extends RoomDatabase {
     public abstract ChunkDAO getChunkDAO();
     public abstract OreDAO getOreDAO();
     public abstract OreAllocDAO getAllocDAO();
+    public abstract OreAvailabilityDAO getAvailabilityDAO();
     public abstract MiningRunDAO getMiningRunDAO();
     public abstract MiningLocationDAO getMiningLocationDAO();
 
@@ -51,6 +52,7 @@ public abstract class AppDatabase extends RoomDatabase {
                 new PopulateOreAllocDbAsync(INSTANCE).execute();
                 new PopulateMiningRunDbAsync(INSTANCE).execute();
                 new PopulateMiningLocationsDbAsync(INSTANCE).execute();
+                new PopulateOreAvailabilityDbAsync(INSTANCE).execute();
             }
         };
 
@@ -95,6 +97,18 @@ public abstract class AppDatabase extends RoomDatabase {
 
         @Override
         protected Void doInBackground(final Void... params) {
+            return null;
+        }
+    }
+
+    private static class PopulateOreAvailabilityDbAsync extends AsyncTask<Void, Void, Void> {
+        private final OreAvailabilityDAO dao;
+
+        PopulateOreAvailabilityDbAsync(AppDatabase db) { this.dao = db.getAvailabilityDAO(); }
+
+        @Override
+        protected Void doInBackground(final Void... params) {
+            dao.insert(OreAvailability.TABLE());
             return null;
         }
     }
