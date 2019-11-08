@@ -1,6 +1,5 @@
 package com.byrtsoft.starcitizen.miningcalculator;
 
-import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
@@ -16,7 +15,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.byrtsoft.starcitizen.db.MiningLocation;
-import com.byrtsoft.starcitizen.db.OreAvailability;
 
 import java.util.List;
 
@@ -63,16 +61,8 @@ public class PickLocationFragment extends Fragment {
     }
 
     public void onItemSelected(MiningLocation location) {
-        appViewModel.getLocationOres(location).observe(this, new Observer<List<OreAvailability>>() {
-                    int listSize = 0;
 
-                    @Override
-                    public void onChanged(@Nullable List<OreAvailability> oreAvailabilities) {
-                         listSize = oreAvailabilities != null ? oreAvailabilities.size() : 0;
-                         Log.d(TAG, "ListSize = " + listSize);
-                    }
-                });
-        Log.d(TAG, "Number of Ores available at " + location.getName() + " = ");
+        Log.d(TAG, "Number of Ores available at " + location.getName() + " = " + location.getOreIds().length);
         getFragmentManager().popBackStack();
     }
 

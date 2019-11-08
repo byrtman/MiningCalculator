@@ -23,6 +23,9 @@ public interface OreDAO {
     @Query("SELECT * FROM ore_table WHERE mName=:name")
     Ore getOreByName(String name);
 
+    @Query("SELECT * FROM ore_table WHERE rowId=:id")
+    Ore getOreById(int id);
+
     @Query("SELECT * FROM ore_table")
     LiveData<List<Ore>> getOres();
 

@@ -7,16 +7,14 @@ import android.os.AsyncTask;
 import com.byrtsoft.starcitizen.db.AppDatabase;
 import com.byrtsoft.starcitizen.db.Chunk;
 import com.byrtsoft.starcitizen.db.ChunkDAO;
+import com.byrtsoft.starcitizen.db.MiningLocation;
+import com.byrtsoft.starcitizen.db.MiningLocationDAO;
 import com.byrtsoft.starcitizen.db.MiningRun;
 import com.byrtsoft.starcitizen.db.MiningRunDAO;
 import com.byrtsoft.starcitizen.db.Ore;
 import com.byrtsoft.starcitizen.db.OreAlloc;
 import com.byrtsoft.starcitizen.db.OreAllocDAO;
-import com.byrtsoft.starcitizen.db.OreAvailability;
-import com.byrtsoft.starcitizen.db.OreAvailabilityDAO;
 import com.byrtsoft.starcitizen.db.OreDAO;
-import com.byrtsoft.starcitizen.db.MiningLocation;
-import com.byrtsoft.starcitizen.db.MiningLocationDAO;
 
 import java.util.List;
 
@@ -25,7 +23,6 @@ public class AppRepository {
     private ChunkDAO chunkDAO;
     private OreDAO oreDAO;
     private OreAllocDAO allocDAO;
-    private OreAvailabilityDAO oreAvailabilityDAO;
     private MiningRunDAO runDAO;
     private MiningLocationDAO miningLocationDAO;
 
@@ -34,7 +31,6 @@ public class AppRepository {
     private LiveData<List<OreAlloc>> allocationsByChunkId;
     private LiveData<List<MiningRun>> allRuns;
     private LiveData<List<MiningLocation>> allMiningLocations;
-    private LiveData<List<OreAvailability>> oresByLocationId;
 
     private LiveData<Chunk> currentChunk;
     private static long lastInsertedChunkId;
@@ -44,7 +40,6 @@ public class AppRepository {
         chunkDAO = db.getChunkDAO();
         oreDAO = db.getOreDAO();
         allocDAO = db.getAllocDAO();
-        oreAvailabilityDAO = db.getAvailabilityDAO();
         runDAO = db.getMiningRunDAO();
         miningLocationDAO = db.getMiningLocationDAO();
 
@@ -72,10 +67,6 @@ public class AppRepository {
 
     LiveData<List<MiningRun>> getAllRuns() { return allRuns; }
     LiveData<List<MiningLocation>> getAllMiningLocations() { return allMiningLocations; }
-    LiveData<List<OreAvailability>> getLocationOres(MiningLocation location) {
-        oresByLocationId = oreAvailabilityDAO.getAvailableOres(location.getId());
-        return oresByLocationId;
-    }
 
 
     // PUBLIC API //

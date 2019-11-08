@@ -15,8 +15,12 @@ public class MiningLocation {
     @ColumnInfo(name = "name")
     private String name;
 
-    public MiningLocation(@NonNull String name) {
+    @ColumnInfo(name = "oreIds")
+    private int[] oreIds;
+
+    public MiningLocation(@NonNull String name, int[] oreIds) {
         this.name = name;
+        this.oreIds = oreIds;
     }
 
     public int getId() {
@@ -35,6 +39,10 @@ public class MiningLocation {
         this.name = name;
     }
 
+    public int[] getOreIds() { return oreIds;}
+
+    public void setOreIds(int[] oreIds) { this.oreIds = oreIds; }
+
     public String toString() {
         StringBuilder result = new StringBuilder();
         result.append("{ MiningLocation:");
@@ -45,26 +53,26 @@ public class MiningLocation {
 
     public static MiningLocation[] LOCATIONS() {
         return new MiningLocation[] {
-                new MiningLocation("Aberdeen"),
-                new MiningLocation("Arial"),
-                new MiningLocation("Cellin"),
-                new MiningLocation("CRU-L1"),
-                new MiningLocation("CRU-L2"),
-                new MiningLocation("CRU-L3"),
-                new MiningLocation("CRU-L4"),
-                new MiningLocation("CRU-L5"),
-                new MiningLocation("Daymar"),
-                new MiningLocation("Delamar asteroid field"),
-                new MiningLocation("HUR-L1"),
-                new MiningLocation("HUR-L2"),
-                new MiningLocation("HUR-L3"),
-                new MiningLocation("HUR-L4"),
-                new MiningLocation("Ita"),
-                new MiningLocation("Lyria"),
-                new MiningLocation("Magda"),
-                new MiningLocation("Wala"),
-                new MiningLocation("Yela"),
-                new MiningLocation("Yela Ring"),
+                new MiningLocation("Aberdeen", new int[]{2,4,6}),
+                new MiningLocation("Arial", new int[]{}),
+                new MiningLocation("Cellin", new int[]{}),
+                new MiningLocation("CRU-L1", new int[]{}),
+                new MiningLocation("CRU-L2", new int[]{}),
+                new MiningLocation("CRU-L3", new int[]{}),
+                new MiningLocation("CRU-L4", new int[]{}),
+                new MiningLocation("CRU-L5", new int[]{}),
+                new MiningLocation("Daymar", new int[]{}),
+                new MiningLocation("Delamar asteroid field", new int[]{}),
+                new MiningLocation("HUR-L1", new int[]{}),
+                new MiningLocation("HUR-L2", new int[]{}),
+                new MiningLocation("HUR-L3", new int[]{}),
+                new MiningLocation("HUR-L4", new int[]{}),
+                new MiningLocation("Ita", new int[]{}),
+                new MiningLocation("Lyria", new int[]{}),
+                new MiningLocation("Magda", new int[]{}),
+                new MiningLocation("Wala", new int[]{}),
+                new MiningLocation("Yela", new int[]{}),
+                new MiningLocation("Yela Ring", new int[]{}),
         };
 
     }
