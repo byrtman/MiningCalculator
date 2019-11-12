@@ -15,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.byrtsoft.starcitizen.db.MiningLocation;
+import com.byrtsoft.starcitizen.db.Ore;
 
 import java.util.List;
 
@@ -63,6 +64,11 @@ public class PickLocationFragment extends Fragment {
     public void onItemSelected(MiningLocation location) {
 
         Log.d(TAG, "Number of Ores available at " + location.getName() + " = " + location.getOreIds().length);
+        String msg = "";
+        for (int i=0; i < location.getOreIds().length; i++) {
+            msg +=  Ore.ORES()[location.getOreIds()[i]].getName() + "\n\t";
+        }
+        Log.d(TAG, "\n\n" + msg);
         getFragmentManager().popBackStack();
     }
 
