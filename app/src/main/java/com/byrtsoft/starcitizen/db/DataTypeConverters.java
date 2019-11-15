@@ -7,6 +7,7 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
+import java.util.ArrayList;
 
 class DataTypeConverters {
     @TypeConverter
@@ -22,13 +23,13 @@ class DataTypeConverters {
     }
 
     @TypeConverter
-    public static int[] toIntArray(String value) {
-        Type myType = new TypeToken<int[]>() {}.getType();
+    public static ArrayList<Integer> toIntArray(String value) {
+        Type myType = new TypeToken<ArrayList<Integer>>() {}.getType();
         return new Gson().fromJson(value, myType);
     }
 
     @TypeConverter
-    public static String fromOreArray(int[] oreIds) {
+    public static String fromIntArray(ArrayList<Integer> oreIds) {
         Gson gson = new Gson();
         return gson.toJson(oreIds);
     }

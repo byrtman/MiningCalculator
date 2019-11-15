@@ -4,6 +4,7 @@ A calculator app that helps Star Citizen miners determine the value of rocks bef
 
 
 **TODO:** 
+1. Change UI for Ore allocation selction to just drop-downs
 1. Reset current allocation
 1. Allow editing of committed chunk
 1. Prevent adding empty chunks

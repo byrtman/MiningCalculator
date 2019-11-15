@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -24,6 +25,7 @@ public class PickLocationFragment extends Fragment {
     private static String TAG = "BYRT";
     private AppViewModel appViewModel;
     private LocationListAdapter locationListAdapter;
+    private DefineChunkFragment mChunkFragment;
 
     public static PickLocationFragment newInstance() {
         return new PickLocationFragment();
@@ -63,13 +65,18 @@ public class PickLocationFragment extends Fragment {
 
     public void onItemSelected(MiningLocation location) {
 
-        Log.d(TAG, "Number of Ores available at " + location.getName() + " = " + location.getOreIds().length);
+        Log.d(TAG, "Number of Ores available at " + location.getName() + " = " + location.getOreIds().size());
         String msg = "";
-        for (int i=0; i < location.getOreIds().length; i++) {
-            msg +=  Ore.ORES()[location.getOreIds()[i]].getName() + "\n\t";
+        for (int i=0; i < location.getOreIds().size(); i++) {
+            msg +=  Ore.ORES()[location.getOreIds().get(i)].getName() + "\n\t";
         }
         Log.d(TAG, "\n\n" + msg);
-        getFragmentManager().popBackStack();
+        mChunkFragment = new DefineChunkFragment();
+        mChunkFragment.setArguments(getActivity().getIntent().getExtras());
+        FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction().add(android.R.id.content, mChunkFragment);
+
+        transaction.addToBackStack(null);
+        transaction.commit();
     }
 
 }

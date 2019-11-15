@@ -14,7 +14,7 @@ import android.support.annotation.NonNull;
         Ore.class,
         OreAlloc.class,
         MiningRun.class,
-        MiningLocation.class }, version = 7, exportSchema = false)
+        MiningLocation.class }, version = 8, exportSchema = false)
 @TypeConverters({DataTypeConverters.class})
 public abstract class AppDatabase extends RoomDatabase {
     public abstract ChunkDAO getChunkDAO();
