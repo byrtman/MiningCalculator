@@ -69,7 +69,7 @@ public class MiningLocation {
                 new MiningLocation("HUR-L3", new ArrayList<Integer>(Arrays.asList(1,4,5,6,7,8,10,13,14,15))),
                 new MiningLocation("HUR-L4", new ArrayList<Integer>(Arrays.asList(1,4,5,6,7,8,10,13,14,15))),
                 new MiningLocation("Ita", new ArrayList<Integer>(Arrays.asList(0,1,2,5,7,8,11,13,14,15))),
-                new MiningLocation("Lyria", new ArrayList<Integer>(Arrays.asList(15))),
+                new MiningLocation("Lyria", new ArrayList<Integer>(Arrays.asList(0,1,2,3,5,6,7,9,12,14,15))),
                 new MiningLocation("Magda", new ArrayList<Integer>(Arrays.asList(0,1,2,7,14,15))),
                 new MiningLocation("Wala", new ArrayList<Integer>(Arrays.asList(15))),
                 new MiningLocation("Yela", new ArrayList<Integer>(Arrays.asList(0,1,2,6,7,10,14,15))),
